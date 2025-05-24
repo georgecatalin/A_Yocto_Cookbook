@@ -1,6 +1,7 @@
 # My Yocto Cookbook
-* This repository contains a curated collection of Yocto Project resources, including custom recipes, configuration snippets, layer examples, build tips, and troubleshooting notes. It serves as a personal toolkit for embedded Linux development, helping streamline project setup, experimentation, and learning.
-* Ideal for reusing proven solutions and accelerating future Yocto-based projects.
+This repository contains a curated collection of Yocto Project resources, including custom recipes, configuration snippets, layer examples, build tips, and troubleshooting notes. It serves as a personal toolkit for embedded Linux development, helping streamline project setup, experimentation, and learning.
+
+The purpose is to reuse proven solutions and accelerate future Yocto-based projects.
 
 ## Useful Links
 1. https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html
