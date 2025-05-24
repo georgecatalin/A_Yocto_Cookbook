@@ -1,0 +1,1 @@
+TODO: Create a raw core-image-sato for a qemux86-64 machine and run it to check its functionality. 
