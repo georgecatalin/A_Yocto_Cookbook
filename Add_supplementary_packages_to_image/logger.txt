@@ -1,0 +1,38 @@
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-recipes python3
+NOTE: Starting bitbake server...
+Loading cache: 100% |###################################################################################################################################################| Time: 0:00:00
+Loaded 1644 entries from dependency cache.
+=== Matching recipes: ===
+python3:
+  meta                 3.10.16
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-recipes emacs
+NOTE: Starting bitbake server...
+Loading cache: 100% |###################################################################################################################################################| Time: 0:00:00
+Loaded 1644 entries from dependency cache.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ nano conf/local.conf 
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake core-image-minimal
+Loading cache: 100% |                                                                                                                                                  | ETA:  --:--:--
+Loaded 0 entries from dependency cache.
+Parsing recipes: 100% |#################################################################################################################################################| Time: 0:00:47
+Parsing of 883 .bb files complete (0 cached, 883 parsed). 1644 targets, 45 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+
+Initialising tasks: 100% |##############################################################################################################################################| Time: 0:00:05
+Sstate summary: Wanted 283 Local 274 Mirrors 0 Missed 9 Current 1161 (96% match, 99% complete)
+NOTE: Executing Tasks
+NOTE: Tasks Summary: Attempted 3946 tasks of which 3917 didn't need to be rerun and all succeeded.
+
