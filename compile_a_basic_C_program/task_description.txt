@@ -1,1 +1,136 @@
 Create a recipe and follow the adequate workflox to build a C "hello world" program with Yocto.
+
+=================================================================================================
+---
+
+## 🎯 Goal:
+
+* Write a C program that prints "Hello, World!"
+* Create a Yocto recipe to build it
+* Include it in a Yocto image
+
+---
+
+## ✅ Step-by-Step Guide
+
+---
+
+### 🧱 1. Create Your Own Layer (if not already done)
+
+You need a custom layer to store your recipe.
+
+#### A. Create it:
+
+```bash
+cd ~/yocto/poky
+bitbake-layers create-layer ../meta-myapps
+```
+
+#### B. Add it to your build:
+
+```bash
+bitbake-layers add-layer ../meta-myapps
+```
+
+---
+
+### ✍️ 2. Write the C Program
+
+Create this file:
+
+```
+meta-myapps/recipes-example/hello/files/hello.c
+```
+
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+```
+
+---
+
+### 📦 3. Create the BitBake Recipe
+
+Create the recipe file:
+
+```
+meta-myapps/recipes-example/hello/hello_1.0.bb
+```
+
+```bitbake
+SUMMARY = "Simple Hello World program"
+SECTION = "examples"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835c9a4e235d1a60a6d7091b7c6bc96"
+
+SRC_URI = "file://hello.c"
+
+S = "${WORKDIR}"
+
+do_compile() {
+    ${CC} ${CFLAGS} hello.c -o hello
+}
+
+do_install() {
+    install -d ${D}${bindir}
+    install -m 0755 hello ${D}${bindir}/hello
+}
+```
+
+---
+
+### 🧩 4. Include Your App in the Image
+
+Edit `conf/local.conf` and append:
+
+```conf
+IMAGE_INSTALL:append = " hello"
+```
+
+---
+
+### 🛠️ 5. Build the Image
+
+Rebuild your image (e.g., core-image-minimal):
+
+```bash
+bitbake core-image-minimal
+```
+
+---
+
+### 🚀 6. Boot and Test
+
+After booting the target (or QEMU):
+
+```bash
+hello
+```
+
+Output:
+
+```
+Hello, World!
+```
+
+---
+
+## 📁 Final Folder Structure
+
+```
+meta-myapps/
+├── recipes-example/
+│   └── hello/
+│       ├── files/
+│       │   └── hello.c
+│       └── hello_1.0.bb
+```
+
+---
+
+Would you like to expand this to include a Makefile or autotooled build next?
+
