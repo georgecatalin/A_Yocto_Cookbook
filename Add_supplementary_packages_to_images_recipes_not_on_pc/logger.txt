@@ -1,0 +1,204 @@
+georgeca@georgeca-VirtualBox:~/yocto_tutorial$ git clone git://git.openembedded.org/meta-openembedded -b kirkstone
+Cloning into 'meta-openembedded'...
+remote: Enumerating objects: 273295, done.
+remote: Counting objects: 100% (140/140), done.
+remote: Compressing objects: 100% (33/33), done.
+remote: Total 273295 (delta 115), reused 107 (delta 107), pack-reused 273155
+Receiving objects: 100% (273295/273295), 67.19 MiB | 9.31 MiB/s, done.
+Resolving deltas: 100% (168848/168848), done.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial$ ls -lh
+total 16K
+drwxrwxr-x 14 georgeca georgeca 4,0K mai 26 17:54 meta-openembedded
+drwxrwxr-x  5 georgeca georgeca 4,0K mai 26 17:40 my_builds
+drwxrwxr-x 12 georgeca georgeca 4,0K mai 24 08:38 poky
+drwxrwxr-x  5 georgeca georgeca 4,0K mai 24 09:04 sources
+georgeca@georgeca-VirtualBox:~/yocto_tutorial$ cd my_builds/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ source ../poky/oe-init-build-env .
+
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+
+Common targets are:
+    core-image-minimal
+    core-image-full-cmdline
+    core-image-sato
+    core-image-weston
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like 'runqemu qemux86'
+
+Other commonly useful commands are:
+ - 'devtool' and 'recipetool' handle common recipe tasks
+ - 'bitbake-layers' handles common layer tasks
+ - 'oe-pkgdata-util' handles common target package tasks
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show_layers
+NOTE: Starting bitbake server...
+usage: bitbake-layers [-d] [-q] [-F] [--color COLOR] [-h] <subcommand> ...
+bitbake-layers: error: argument <subcommand>: invalid choice: 'show_layers' (choose from 'show-layers', 'show-overlayed', 'show-recipes', 'show-appends', 'show-cross-depends', 'add-layer', 'remove-layer', 'flatten', 'layerindex-fetch', 'layerindex-show-depends', 'create-layer')
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cd ..
+georgeca@georgeca-VirtualBox:~/yocto_tutorial$ ls
+meta-openembedded  my_builds  poky  sources
+georgeca@georgeca-VirtualBox:~/yocto_tutorial$ mv meta-openembedded/ poky/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial$ ls
+my_builds  poky  sources
+georgeca@georgeca-VirtualBox:~/yocto_tutorial$ cd my_builds/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers create-layer meta-openembedded
+NOTE: Starting bitbake server...
+Add your new layer with 'bitbake-layers add-layer meta-openembedded'
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers add-layer meta-openembedded/
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-openembedded     /home/georgeca/yocto_tutorial/my_builds/meta-openembedded  6
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ nano c
+cache/ conf/  
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ nano conf/local.conf 
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake core-image-minimal
+Loading cache: 100% |                                                                                                                                                  | ETA:  --:--:--
+Loaded 0 entries from dependency cache.
+Parsing recipes: 100% |#################################################################################################################################################| Time: 0:00:45
+Parsing of 884 .bb files complete (0 cached, 884 parsed). 1645 targets, 45 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+ERROR: Nothing RPROVIDES 'nano' (but /home/georgeca/yocto_tutorial/poky/meta/recipes-core/images/core-image-minimal.bb RDEPENDS on or otherwise requires it)
+NOTE: Runtime target 'nano' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['nano']
+ERROR: Required build target 'core-image-minimal' has no buildable providers.
+Missing or unbuildable dependency chain was: ['core-image-minimal', 'nano']
+
+Summary: There were 2 ERROR messages, returning a non-zero exit code.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-recipes nano
+NOTE: Starting bitbake server...
+Loading cache: 100% |###################################################################################################################################################| Time: 0:00:00
+Loaded 1645 entries from dependency cache.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ nano conf/bblayers.conf 
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+ERROR: Unable to parse /home/georgeca/yocto_tutorial/poky/bitbake/lib/bb/parse/__init__.py
+Traceback (most recent call last):
+  File "/home/georgeca/yocto_tutorial/poky/bitbake/lib/bb/parse/__init__.py", line 136, in resolve_file(fn='/home/georgeca/yocto_tutorial/poky/meta-openembedded/conf/layer.conf', d=<bb.data_smart.DataSmart object at 0x7e975ba4e8f0>):
+         if not os.path.isfile(fn):
+    >        raise IOError(errno.ENOENT, "file %s not found" % fn)
+     
+FileNotFoundError: [Errno 2] file /home/georgeca/yocto_tutorial/poky/meta-openembedded/conf/layer.conf not found
+
+ERROR: Unable to parse /home/georgeca/yocto_tutorial/poky/bitbake/lib/bb/parse/__init__.py
+Traceback (most recent call last):
+  File "/home/georgeca/yocto_tutorial/poky/bitbake/lib/bb/parse/__init__.py", line 136, in resolve_file(fn='/home/georgeca/yocto_tutorial/poky/meta-openembedded/conf/layer.conf', d=<bb.data_smart.DataSmart object at 0x7e975baa43d0>):
+         if not os.path.isfile(fn):
+    >        raise IOError(errno.ENOENT, "file %s not found" % fn)
+     
+FileNotFoundError: [Errno 2] file /home/georgeca/yocto_tutorial/poky/meta-openembedded/conf/layer.conf not found
+
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ nano conf/bblayers.conf 
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-openembedded     /home/georgeca/yocto_tutorial/my_builds/meta-openembedded  6
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers help
+NOTE: Starting bitbake server...
+usage: bitbake-layers [-d] [-q] [-F] [--color COLOR] [-h] <subcommand> ...
+bitbake-layers: error: argument <subcommand>: invalid choice: 'help' (choose from 'layerindex-fetch', 'layerindex-show-depends', 'add-layer', 'remove-layer', 'flatten', 'show-layers', 'show-overlayed', 'show-recipes', 'show-appends', 'show-cross-depends', 'create-layer')
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers remove-layer meta-openembedded
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cd ../poky/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky$ bitbake-layers create-layer meta-openembedded
+NOTE: Starting bitbake server...
+Specified layer directory exists
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky$ cd ..
+georgeca@georgeca-VirtualBox:~/yocto_tutorial$ cd my_builds/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls
+'~'   bitbake-cookerdaemon.log   cache   conf   meta-openembedded
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls meta-openembedded/
+conf  COPYING.MIT  README  recipes-example
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ rm -rf meta-openembedded/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls -lh
+total 400K
+drwxrwxr-x 3 georgeca georgeca 4,0K mai 24 09:01 '~'
+-rw-rw-r-- 1 georgeca georgeca 381K mai 26 18:07  bitbake-cookerdaemon.log
+drwxrwxr-x 2 georgeca georgeca 4,0K mai 26 18:07  cache
+drwxrwxr-x 2 georgeca georgeca 4,0K mai 26 18:06  conf
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cd c
+cache/ conf/  
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cd conf/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds/conf$ nano bblayers.conf 
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds/conf$ bitbake-layers add-layer ../../poky/meta-openembedded/
+NOTE: Starting bitbake server...
+Specified layer directory /home/georgeca/yocto_tutorial/poky/meta-openembedded doesn't contain a conf/layer.conf file
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds/conf$ bitbake-layers add-layer ../../poky/meta-openembedded/meta-oe
+NOTE: Starting bitbake server...
+Unable to find bblayers.conf
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds/conf$ cd ..
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers add-layer ../poky/meta-openembedded/meta-oe/
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ time bitbake core-image-minimal
+Loading cache: 100% |                                                                                                                                                  | ETA:  --:--:--
+Loaded 0 entries from dependency cache.
+Parsing recipes: 100% |#################################################################################################################################################| Time: 0:01:40
+Parsing of 1745 .bb files complete (0 cached, 1745 parsed). 2784 targets, 78 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+
+Initialising tasks: 100% |##############################################################################################################################################| Time: 0:00:05
+Sstate summary: Wanted 148 Local 139 Mirrors 0 Missed 9 Current 1303 (93% match, 99% complete)
+Removing 2 stale sstate objects for arch qemux86_64: 100% |#############################################################################################################| Time: 0:00:00
+NOTE: Executing Tasks
+NOTE: Tasks Summary: Attempted 3961 tasks of which 3932 didn't need to be rerun and all succeeded.
+
+real	3m50,631s
+user	0m1,137s
+sys	0m0,112s
+

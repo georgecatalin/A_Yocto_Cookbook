@@ -1,0 +1,8 @@
+Add the package 'nano' to the image. The package 'nano' does not exist in the meta-layers downloaded with the raw Poky, it belongs to a meta-layers which needs to be downloaded separately.
+
+RESOLUTION:
+1. check the meta-layer which contains the package you wish to add
+2. download with git the meta-layer on your machine
+3. add the newly downloaded layer as a new layer to the conf/bblayers.conf file or using 'bitbake-layers add-layer ../path_to_layer'
+4. add the IMAGE_INSTALL.. in the conf/local.conf
+5. bitbake the image (in case bitbake command is not found , then source again the poky/oe-init-build-env  script in the build folder
