@@ -1,0 +1,1 @@
+Create a recipe and follow the adequate workflox to build a C "hello world" program with Yocto.
