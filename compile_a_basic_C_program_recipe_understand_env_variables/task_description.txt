@@ -1,0 +1,1 @@
+Build a recipe that compiles a basic C  program and understand the meaning of environment variables in Yocto Project.

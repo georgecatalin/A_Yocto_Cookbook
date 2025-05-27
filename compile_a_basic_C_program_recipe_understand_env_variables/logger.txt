@@ -1,0 +1,37 @@
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake helloworld
+Loading cache: 100% |#############################################################################################################################################################################| Time: 0:00:00
+Loaded 2785 entries from dependency cache.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta
+meta-poky
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-my-builder      = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+
+Initialising tasks: 100% |########################################################################################################################################################################| Time: 0:00:02
+Sstate summary: Wanted 5 Local 5 Mirrors 0 Missed 0 Current 225 (100% match, 100% complete)
+NOTE: Executing Tasks
+NOTE: Tasks Summary: Attempted 785 tasks of which 785 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e helloworld | grep ^PN=
+PN="helloworld"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e helloworld | grep ^PV=
+PV="0.1"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e helloworld | grep ^PR=
+PR="r0"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e helloworld | grep ^WORKDIR=
+WORKDIR="/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/helloworld/0.1-r0"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e helloworld | grep ^S=
+S="/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/helloworld/0.1-r0"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e helloworld | grep ^D=
+D="/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/helloworld/0.1-r0/image"
