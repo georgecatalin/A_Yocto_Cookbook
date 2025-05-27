@@ -3,6 +3,8 @@ This repository contains a curated collection of Yocto Project resources, includ
 
 The purpose is to reuse proven solutions and accelerate future Yocto-based projects.
 
+<img src="yocto_project.png" alt="Yocto-Project Logo" width="300">
+
 ## Useful Links
 1. https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html
 2. https://www.youtube.com/watch?v=5fj05BWryhM&list=PLwqS94HTEwpQmgL1UsSwNk_2tQdzq3eVJ
