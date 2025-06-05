@@ -1,0 +1,8 @@
+Create a new recipe to understand the workflow functioning around running the do_configure() operation in the build process of bitbake.
+
+Order of operations:
+1. do_fetch()
+2. do_unpack()
+3. do_patch()
+4. do_configure()
+..
