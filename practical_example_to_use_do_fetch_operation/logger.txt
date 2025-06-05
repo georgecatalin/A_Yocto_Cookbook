@@ -1,0 +1,644 @@
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-my-builder/recipes-example/helloworld$ sudo snap install code --classic
+code 258e40fe from Visual Studio Code (vscode✓) installed
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-my-builder/recipes-example/helloworld$ code
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-my-builder/recipes-example/helloworld$ cd ~/yocto_tutorial/my_builds/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers create-layer ../poky/meta-do_fetch_example
+NOTE: Starting bitbake server...
+Add your new layer with 'bitbake-layers add-layer ../poky/meta-do_fetch_example'
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-my-builder       /home/georgeca/yocto_tutorial/poky/meta-my-builder  6
+meta-assignment-vars  /home/georgeca/yocto_tutorial/my_builds/meta-assignment-vars  6
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers add-layers ../poky/meta-do_fetch_example/
+NOTE: Starting bitbake server...
+usage: bitbake-layers [-d] [-q] [-F] [--color COLOR] [-h] <subcommand> ...
+bitbake-layers: error: argument <subcommand>: invalid choice: 'add-layers' (choose from 'add-layer', 'remove-layer', 'flatten', 'show-layers', 'show-overlayed', 'show-recipes', 'show-appends', 'show-cross-depends', 'layerindex-fetch', 'layerindex-show-depends', 'create-layer')
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers add-layer ../poky/meta-do_fetch_example/
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-my-builder       /home/georgeca/yocto_tutorial/poky/meta-my-builder  6
+meta-assignment-vars  /home/georgeca/yocto_tutorial/my_builds/meta-assignment-vars  6
+meta-do_fetch_example  /home/georgeca/yocto_tutorial/poky/meta-do_fetch_example  6
+
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -c do_fetch example
+Loading cache: 100% |###################################################################################################################################################| Time: 0:00:00
+Loaded 2785 entries from dependency cache.
+Parsing recipes: 100% |#################################################################################################################################################| Time: 0:00:00
+Parsing of 1746 .bb files complete (1745 cached, 1 parsed). 2785 targets, 78 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-do_fetch_example = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+
+Initialising tasks: 100% |##############################################################################################################################################| Time: 0:00:00
+Sstate summary: Wanted 0 Local 0 Mirrors 0 Missed 0 Current 0 (0% match, 0% complete)
+NOTE: No setscene tasks
+NOTE: Executing Tasks
+NOTE: Tasks Summary: Attempted 1 tasks of which 1 didn't need to be rerun and all succeeded.
+
+
+eorgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls -lh ../sources/downloads/
+total 1,6G
+-rw-r--r--  1 georgeca georgeca  507K mar 16  2021 acl-2.3.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:10 acl-2.3.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   17M sep 11  2021 adwaita-icon-theme-41.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:12 adwaita-icon-theme-41.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,1M dec  9  2021 alsa-lib-1.2.6.1.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 15:01 alsa-lib-1.2.6.1.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  400K dec  6  2021 alsa-plugins-1.2.6.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:37 alsa-plugins-1.2.6.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca   12K iun 15  2021 alsa-topology-conf-1.2.5.1.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:35 alsa-topology-conf-1.2.5.1.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca   28K dec 17  2021 alsa-ucm-conf-1.2.6.3.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:35 alsa-ucm-conf-1.2.6.3.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,3M dec  6  2021 alsa-utils-1.2.6.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:37 alsa-utils-1.2.6.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  297K mar 24  2022 atk-2.38.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:32 atk-2.38.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   96K sep 12  2020 at-spi2-atk-2.38.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:08 at-spi2-atk-2.38.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  194K sep 19  2021 at-spi2-core-2.42.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:07 at-spi2-core-2.42.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  455K mar 16  2021 attr-2.5.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:54 attr-2.5.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  2,0M ian 29  2021 autoconf-2.71.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:05 autoconf-2.71.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  660K feb 11  2022 autoconf-archive-2022.02.11.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:54 autoconf-archive-2022.02.11.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,3M oct  4  2021 automake-1.16.5.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:05 automake-1.16.5.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  1,6M dec  7  2021 avahi-0.8.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:25 avahi-0.8.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   54K sep 25  2021 base-passwd_3.5.52.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:57 base-passwd_3.5.52.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   11M ian  4  2022 bash-5.1.16.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:03 bash-5.1.16.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  304K dec  8  2021 bash-completion-2.11.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:33 bash-completion-2.11.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  411K apr 10  2017 bc-1.07.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:35 bc-1.07.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  2,7M sep 25  2021 bison-3.8.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:05 bison-3.8.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,2M iul 25  2022 bluez-5.65.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:14 bluez-5.65.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,4M dec 26  2021 busybox-1.35.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:54 busybox-1.35.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  792K iul 13  2019 bzip2-1.0.8.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:15 bzip2-1.0.8.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   41M oct 19  2018 cairo-1.16.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:30 cairo-1.16.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  331K dec 10  2021 cantarell-fonts-0.303.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:33 cantarell-fonts-0.303.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  6,3M ian 13  2022 cargo-1.58.0-x86_64-unknown-linux-gnu.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:55 cargo-1.58.0-x86_64-unknown-linux-gnu.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  757K dec  8  2021 check-0.15.2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:48 check-0.15.2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  132K ian 19  2014 chrpath_0.16.orig.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:10 chrpath_0.16.orig.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  9,4M mar  4  2022 cmake-3.22.3.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:36 cmake-3.22.3.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  741K ian 28  2022 connman-1.41.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:38 connman-1.41.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  358K iul 19  2013 ConsoleKit-0.4.6.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:37 ConsoleKit-0.4.6.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  5,4M sep 24  2021 coreutils-9.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:07 coreutils-9.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,4M mar  5  2022 curl-7.82.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:14 curl-7.82.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   29K feb  1  2011 cwautomacros-20110201.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:46 cwautomacros-20110201.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,4M iun  6  2023 dbus-1.14.8.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:06 dbus-1.14.8.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  699K mar 26  2021 dbus-glib-0.112.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:10 dbus-glib-0.112.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  565K iul 20  2021 dbus-python-1.2.18.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:19 dbus-python-1.2.18.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   82K iun 19  2020 desktop-file-utils-0.26.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:47 desktop-file-utils-0.26.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,6M mai 21  2023 diffutils-3.10.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:58 diffutils-3.10.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  412K ian 13  2009 docbook-xml_4.5.orig.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:11 docbook-xml_4.5.orig.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   21M dec 27  2015 docbook-xsl-1.79.1.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:11 docbook-xsl-1.79.1.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  314K dec  7  2021 dosfstools-4.2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:32 dosfstools-4.2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  2,2M oct 29  2020 dropbear-2020.81.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:28 dropbear-2020.81.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  8,9M nov 11  2021 elfutils-0.186.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 elfutils-0.186.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  522K apr 21  2022 ell-0.50.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:14 ell-0.50.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  306K iul 12  2022 encodings-1.0.6.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:57 encodings-1.0.6.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   33K ian 28  2020 Error-0.17029.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:47 Error-0.17029.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  1,9M feb  9  2021 eudev-3.2.10.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:13 eudev-3.2.10.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  556K oct 25  2022 expat-2.5.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:57 expat-2.5.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  2,0M feb  2  2022 findutils-4.9.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:01 findutils-4.9.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca 1015K feb 21  2022 flac-1.3.4.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:55 flac-1.3.4.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,4M dec  7  2021 flex-2.6.4.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:05 flex-2.6.4.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  134K apr 10  2023 flit-3.7.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:15 flit-3.7.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  2,0M aug 30  2018 fontconfig-2.13.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:08 fontconfig-2.13.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  140K iul 12  2022 font-util-1.3.3.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:02 font-util-1.3.3.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,2M dec  2  2021 freetype-2.11.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:49 freetype-2.11.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,2M mai 16  2023 fribidi-1.0.13.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:29 fribidi-1.0.13.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  6,0M oct 28  2021 gawk-5.1.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:25 gawk-5.1.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   79M iul 19  2024 gcc-11.5.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:06 gcc-11.5.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,5M ian 22  2013 GConf-3.2.6.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:49 GConf-3.2.6.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,1M feb  4  2022 gdbm-1.23.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:15 gdbm-1.23.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  6,3M oct 25  2022 gdk-pixbuf-2.42.10.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:59 gdk-pixbuf-2.42.10.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   24M iul 27  2020 gettext-0.21.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:15 gettext-0.21.tar.gz.done
+drwxr-xr-x 73 georgeca georgeca   12K iun  5 14:10 git2
+-rw-r--r--  1 georgeca georgeca   11M feb 14  2023 git-2.35.7.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 26 17:16 git-2.35.7.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  374M mai  1 16:31 git2_sourceware.org.git.glibc.git.tar.gz
+-rw-r--r--  1 georgeca georgeca     0 mai 24 13:45 git2_sourceware.org.git.glibc.git.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   62M oct  4  2024 gitshallow_sourceware.org.git.binutils-gdb.git_4d71e17-1_binutils-2_38-branch.tar.gz
+-rw-r--r--  1 georgeca georgeca     0 mai 24 14:20 gitshallow_sourceware.org.git.binutils-gdb.git_4d71e17-1_binutils-2_38-branch.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   37M mai  9 21:01 gitshallow_sourceware.org.git.glibc.git_d2febe7-1_release.2.35.master.tar.gz
+-rw-r--r--  1 georgeca georgeca     0 mai 24 09:06 gitshallow_sourceware.org.git.glibc.git_d2febe7-1_release.2.35.master.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  4,7M iun 30  2022 glib-2.72.3.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:36 glib-2.72.3.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  260K aug  6  2022 glib-networking-2.72.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:15 glib-networking-2.72.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  651K iun 25  2021 glu-9.0.2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:32 glu-9.0.2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  2,4M nov 14  2020 gmp-6.2.1.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:10 gmp-6.2.1.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  7,3M iul 11  2022 gnupg-2.3.7.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:28 gnupg-2.3.7.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  5,9M mar 17  2022 gnutls-3.7.4.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 gnutls-3.7.4.tar.xz.done
+-rw-r--r--  1 georgeca georgeca 1017K mar 18  2022 gobject-introspection-1.72.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:08 gobject-introspection-1.72.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,2M ian  5  2017 gperf-3.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:06 gperf-3.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  1,7M mar  6  2022 gpgme-1.17.1.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:48 gpgme-1.17.1.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,6M aug 14  2021 grep-3.7.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:12 grep-3.7.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  4,0M dec 23  2018 groff-1.22.4.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:12 groff-1.22.4.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  6,0M iul 26  2023 gst-plugins-bad-1.20.7.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:01 gst-plugins-bad-1.20.7.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  3,2M iul 26  2023 gst-plugins-base-1.20.7.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:57 gst-plugins-base-1.20.7.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  3,3M iul 26  2023 gst-plugins-good-1.20.7.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:39 gst-plugins-good-1.20.7.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,6M iul 26  2023 gstreamer-1.20.7.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 gstreamer-1.20.7.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   21M mai 18  2022 gtk+-3.24.34.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:10 gtk+-3.24.34.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  496K ian 19  2021 gtk-doc-1.33.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:36 gtk-doc-1.33.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   15M mar 11  2022 harfbuzz-4.0.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:30 harfbuzz-4.0.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   52K aug 31  2017 hicolor-icon-theme-0.17.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:27 hicolor-icon-theme-0.17.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   18M dec  8  2021 icu4c-70_1-data.zip
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:09 icu4c-70_1-data.zip.done
+-rw-r--r--  1 georgeca georgeca   25M dec  8  2021 icu4c-70_1-src.tgz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:09 icu4c-70_1-src.tgz.done
+-rw-r--r--  1 georgeca georgeca   32K apr 10  2023 iniparse-0.5.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:58 iniparse-0.5.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  459K apr 11  2023 installer-0.5.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:15 installer-0.5.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  159K mar  9  2015 intltool-0.51.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:09 intltool-0.51.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  851K mar 22  2022 iproute2-5.17.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:20 iproute2-5.17.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  702K ian 16  2021 iptables-1.8.7.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:30 iptables-1.8.7.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  103K apr  5  2022 itstool-2.0.7.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:11 itstool-2.0.7.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  187K nov  8  2021 iw-5.16.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:29 iw-5.16.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  354K iul 26  2020 json-c-0.15.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:50 json-c-0.15.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  1,3M aug 24  2021 json-glib-1.6.6.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:18 json-glib-1.6.6.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,5M oct 13  2017 lame-3.100.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:05 lame-3.100.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  7,1M dec  9  2022 libarchive-3.6.2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 libarchive-3.6.2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  564K iun 19  2023 libassuan-2.5.6.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:48 libassuan-2.5.6.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  489K aug 25  2022 libatomic_ops-7.6.14.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:35 libatomic_ops-7.6.14.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  178K sep 25  2022 libcap-2.66.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 libcap-2.66.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  446K dec  9  2020 libcap-ng-0.8.2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:34 libcap-ng-0.8.2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  477K apr  6  2019 libcroco-0.6.13.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:00 libcroco-0.6.13.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  333K oct 18  2009 libdaemon-0.14.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:14 libdaemon-0.14.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  310K mai 14  2018 libdmx-1.1.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:06 libdmx-1.1.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  427K feb 16  2022 libdrm-2.4.110.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:50 libdrm-2.4.110.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,3M mar  4 00:57 liberation-fonts-ttf-2.1.5.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:17 liberation-fonts-ttf-2.1.5.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  437K mar 25  2022 libevdev-1.12.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:15 libevdev-1.12.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,9M dec  6  2021 libexif-0.6.24.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:33 libexif-0.6.24.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,3M oct 24  2022 libffi-3.4.4.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:33 libffi-3.4.4.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  924K feb  5  2021 libfm-1.3.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:01 libfm-1.3.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  313K feb 20  2019 libfontenc-1.1.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:12 libfontenc-1.1.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  3,1M aug 22  2021 libgcrypt-1.9.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 libgcrypt-1.9.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  991K ian 27  2022 libgpg-error-1.44.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 libgpg-error-1.44.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca   29K aug 15  2021 libgudev-237.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:16 libgudev-237.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  900K oct 17  2022 libical-3.0.16.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:13 libical-3.0.16.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  384K iul 14  2019 libICE-1.0.10.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:29 libICE-1.0.10.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  2,1M iul 20  2021 libidn2-2.3.2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:13 libidn2-2.3.2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  641K apr 20  2022 libinput-1.19.4.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:19 libinput-1.19.4.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,2M feb  8  2023 libjpeg-turbo-2.1.5.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:53 libjpeg-turbo-2.1.5.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  653K iun 19  2023 libksba-1.6.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:02 libksba-1.6.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  2,1M feb 27  2023 libmicrohttpd-0.9.76.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 libmicrohttpd-0.9.76.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  295K iul  2  2016 libmnl-1.0.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:47 libmnl-1.0.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  946K dec  8  2021 libnl-3.5.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:49 libnl-3.5.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  420K iun  4  2021 libogg-1.3.5.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 libogg-1.3.5.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  914K mar  7 18:11 libpcap-1.10.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:33 libpcap-1.10.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  359K iul 17  2019 libpciaccess-0.16.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:50 libpciaccess-0.16.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  997K nov 20  2022 libpng-1.6.39.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:16 libpng-1.6.39.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  8,8M dec  7  2021 libpsl-0.21.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:27 libpsl-0.21.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   57K mar 14  2017 libpthread-stubs-0.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:17 libpthread-stubs-0.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca   45K aug  4  2021 libptytty-2.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:39 libptytty-2.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   27M iul 21  2023 librsvg-2.52.10.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:11 librsvg-2.52.10.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  3,2M dec  7  2021 libsamplerate-0.2.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:10 libsamplerate-0.2.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  355K oct 10  2018 libSM-1.2.3.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:29 libSM-1.2.3.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  855K dec  7  2021 libsndfile-1.0.31.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:00 libsndfile-1.0.31.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,5M nov 24  2021 libsoup-2.74.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:57 libsoup-2.74.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  943K aug 29  2021 libssh2-1.10.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:54 libssh2-1.10.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  1,9M ian 25  2010 libtheora-1.1.1.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:34 libtheora-1.1.1.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  502K mai 10  2021 libtirpc-1.3.2.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:25 libtirpc-1.3.2.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,9M mar 17  2022 libtool-2.4.7.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:36 libtool-2.4.7.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  4,1M ian  4  2022 libunistring-1.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:11 libunistring-1.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  606K apr 10  2022 libusb-1.0.26.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:05 libusb-1.0.26.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,2M iul  4  2020 libvorbis-1.3.7.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:52 libvorbis-1.3.7.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  4,0M aug  6  2022 libwebp-1.2.4.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:30 libwebp-1.2.4.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  1,8M dec 10  2021 libX11-1.7.3.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:47 libX11-1.7.3.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  316K feb 11  2019 libXau-1.0.9.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:18 libXau-1.0.9.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  430K feb 22  2020 libxcb-1.14.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:46 libxcb-1.14.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  310K mar 11  2019 libXcomposite-0.4.5.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:08 libXcomposite-0.4.5.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  327K mar 11  2019 libXcursor-1.2.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:10 libXcursor-1.2.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  297K mar 11  2019 libXdamage-1.1.5.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:00 libXdamage-1.1.5.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  325K mar 16  2019 libXdmcp-1.1.3.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:45 libXdmcp-1.1.3.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  380K mar 16  2019 libXext-1.3.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:06 libXext-1.3.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  291K mai 12  2021 libXfixes-6.0.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:23 libXfixes-6.0.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  513K aug  2  2021 libXfont2-2.0.5.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:24 libXfont2-2.0.5.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  351K aug  2  2021 libXft-2.3.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:29 libXft-2.3.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  483K sep 15  2021 libXi-1.8.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:10 libXi-1.8.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  281K iul  5  2018 libXinerama-1.1.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:36 libXinerama-1.1.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  461K mai 22 10:28 libxkbcommon-1.4.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:57 libxkbcommon-1.4.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  357K mar 16  2019 libxkbfile-1.1.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:21 libxkbfile-1.1.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  3,0M mai  2  2022 libxml2-2.9.14.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:55 libxml2-2.9.14.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  386K mar 16  2019 libXmu-1.1.3.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:09 libXmu-1.1.3.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  323K mar 16  2019 libXrandr-1.5.2.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:00 libXrandr-1.5.2.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  302K oct  4  2016 libXrender-0.9.10.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:06 libXrender-0.9.10.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  302K feb 26  2018 libxshmfence-1.3.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:51 libxshmfence-1.3.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,8M feb 16  2022 libxslt-1.1.35.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:09 libxslt-1.1.35.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  767K ian 24  2021 libXt-1.2.1.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:30 libXt-1.2.1.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  315K oct  4  2016 libXtst-1.2.3.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:07 libXtst-1.2.3.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  311K oct  4  2016 libXv-1.0.11.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:33 libXv-1.0.11.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  289K feb 24  2015 libXxf86vm-1.1.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:52 libXxf86vm-1.1.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  118M ian 10  2022 linux-5.16.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:06 linux-5.16.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  353K ian 13  2022 lua-5.4.4.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:46 lua-5.4.4.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  131K ian 13  2022 lua-5.4.4-tests.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:46 lua-5.4.4-tests.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  587K mar  1  2017 lzo-2.10.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:11 lzo-2.10.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  2,9M mai 29  2021 m4-1.4.19.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:05 m4-1.4.19.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  2,3M ian 20  2020 make-4.3.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:36 make-4.3.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  178K mar 17  2019 makedepend-1.0.6.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:09 makedepend-1.0.6.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  484K apr 11  2023 Mako-1.1.6.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:09 Mako-1.1.6.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  443K dec 30  2021 mdadm-4.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:15 mdadm-4.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  260K nov  3  2017 menu-cache-1.1.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:32 menu-cache-1.1.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   15M mai  5  2022 mesa-22.0.3.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:52 mesa-22.0.3.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,0M mar 14  2022 meson-0.61.3.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:33 meson-0.61.3.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  141K apr  3  2022 mkfontscale-1.2.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:33 mkfontscale-1.2.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  820K oct 23  2020 mpc-1.2.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:07 mpc-1.2.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  1,4M nov 17  2022 mpfr-4.1.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:19 mpfr-4.1.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,1M dec 11  2021 mpg123-1.29.3.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:04 mpg123-1.29.3.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  290K sep  9  2024 mtdev-1.1.6.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:15 mtdev-1.1.6.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,5M feb 18  2022 nano-6.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 26 18:15 nano-6.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,3M aug 28  2020 nasm-2.15.05.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:13 nasm-2.15.05.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca   32K mar 28  2021 netbase_6.3.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:17 netbase_6.3.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,3M iun  7  2021 nettle-3.7.3.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:11 nettle-3.7.3.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  294K iul 16  2018 npth-1.6.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:01 npth-1.6.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,1M ian  5  2022 ofono-1.34.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:27 ofono-1.34.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,8M feb 23  2022 openssh-8.9p1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:11 openssh-8.9p1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   15M feb 11 16:51 openssl-3.0.16.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:15 openssl-3.0.16.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  593K dec  3  2021 opkg-0.5.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 15:00 opkg-0.5.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  228K sep 12  2024 orc-0.4.40.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:38 orc-0.4.40.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  4,1M feb  9  2022 pango-1.50.4.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:30 pango-1.50.4.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,2M feb  6  2018 patch-2.7.6.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:05 patch-2.7.6.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   47K dec 18  2015 pbzip2-1.1.13.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:59 pbzip2-1.1.13.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  363K mai 31  2020 pciutils-3.7.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:30 pciutils-3.7.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  415K feb  5  2021 pcmanfm-1.3.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:26 pcmanfm-1.3.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,7M apr 15  2022 pcre2-10.40.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:27 pcre2-10.40.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,6M iun 22  2021 pcre-8.45.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:35 pcre-8.45.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca   19M nov 29  2023 perl-5.34.3.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:48 perl-5.34.3.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  118K dec  2  2023 perl-cross-1.5.2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:06 perl-cross-1.5.2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  106K ian 15  2022 pigz-2.7.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:52 pigz-2.7.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  487K aug 25  2021 pinentry-1.2.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:44 pinentry-1.2.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  893K apr 20  2020 pixman-0.40.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:28 pixman-0.40.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  567K iun 23  2020 popt-1.18.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:46 popt-1.18.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  700K ian  5  2021 ppp-2.4.9.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:03 ppp-2.4.9.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  114K aug 24  2021 pseudo-prebuilt-2.33.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:05 pseudo-prebuilt-2.33.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,5M iul 27  2021 pulseaudio-15.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:04 pulseaudio-15.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  333K mar  7  2022 pycairo-1.21.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:43 pycairo-1.21.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  545K sep 19  2021 pygobject-3.42.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:18 pygobject-3.42.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   19M dec  3  2024 Python-3.10.16.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:33 Python-3.10.16.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  111M oct 27  2024 qemu-6.2.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 15:04 qemu-6.2.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  531K feb 15  2022 quilt-0.67.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:05 quilt-0.67.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  509K nov  9  2020 quota-4.06.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:03 quota-4.06.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  1,4M ian 27  2022 re2c-3.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:20 re2c-3.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,9M ian  5  2022 readline-8.1.2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:33 readline-8.1.2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  136K nov  8  2014 rgb-1.0.6.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:34 rgb-1.0.6.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  122K mai 10  2021 rpcbind-1.2.6.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:31 rpcbind-1.2.6.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  1,1M oct 21  2022 rsync-3.2.7.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:06 rsync-3.2.7.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   54M ian 13  2022 rustc-1.58.0-x86_64-unknown-linux-gnu.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:55 rustc-1.58.0-x86_64-unknown-linux-gnu.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  123M feb 24  2022 rustc-1.59.0-src.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:14 rustc-1.59.0-src.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   26M ian 13  2022 rust-std-1.58.0-x86_64-unknown-linux-gnu.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:55 rust-std-1.58.0-x86_64-unknown-linux-gnu.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  857K nov 27  2021 rxvt-unicode-9.30.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:33 rxvt-unicode-9.30.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  259K dec  8  2020 sbc-1.5.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:22 sbc-1.5.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  6,9M ian 11  2022 SDL2-2.0.20.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 15:01 SDL2-2.0.20.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  1,3M ian 15  2020 sed-4.8.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:11 sed-4.8.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  2,2M apr 11  2023 setuptools-59.5.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:25 setuptools-59.5.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  4,0M ian  3  2022 shadow-4.11.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:00 shadow-4.11.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   34K apr 10  2023 six-1.16.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:48 six-1.16.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  510K oct 30  2022 socat-1.7.4.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:35 socat-1.7.4.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca 1023K dec  8  2016 speex-1.2.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:06 speex-1.2.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  899K iun  7  2019 speexdsp-1.2.0.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:17 speexdsp-1.2.0.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  2,9M apr  7 21:56 sqlite-autoconf-3380500.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:33 sqlite-autoconf-3380500.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  347K mai 16  2011 startup-notification-0.12.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:23 startup-notification-0.12.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  2,2M ian 10  2022 strace-5.16.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:11 strace-5.16.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  5,1M nov  9  2023 sudo-1.9.15p2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:39 sudo-1.9.15p2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  7,8M iun  8  2020 swig-4.0.2.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:52 swig-4.0.2.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  124K dec 13  2021 sysvinit-3.01.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:33 sysvinit-3.01.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  1,4M ian 20 18:14 taglib-1.12.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:40 taglib-1.12.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   98K apr  8  1997 tcp_wrappers_7.6.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:18 tcp_wrappers_7.6.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  303K mar 22 23:45 tzcode2025b.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:22 tzcode2025b.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  454K mar 22 23:45 tzdata2025b.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:22 tzdata2025b.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   66K nov  6  2020 unifdef-2.12.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:06 unifdef-2.12.tar.xz.done
+drwxrwxr-x  3 georgeca georgeca  4,0K mai 24 09:04 uninative
+-rw-r--r--  1 georgeca georgeca  1,4M apr 30  2009 unzip60.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:45 unzip60.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  5,9M feb 14  2022 util-linux-2.37.4.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:34 util-linux-2.37.4.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  102K ian 24  2021 util-macros-1.19.3.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:08 util-macros-1.19.3.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   85K apr 27  2011 v86d_0.1.10.orig.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:32 v86d_0.1.10.orig.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  3,8M sep  3  2022 vala-0.56.3.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:13 vala-0.56.3.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  875K dec  8  2021 vte-0.66.2.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:44 vte-0.66.2.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  220K mai 22 22:19 wayland-1.20.0.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:57 wayland-1.20.0.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   78K mai 22 22:19 wayland-protocols-1.25.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:52 wayland-protocols-1.25.tar.xz.done
+-rw-r--r--  1 georgeca georgeca   65K apr 11  2023 wheel-0.37.1.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:15 wheel-0.37.1.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  146K mar 20  2015 which-2.21.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:36 which-2.21.tar.gz.done
+-rw-r--r--  1 georgeca georgeca   30K oct  7  2024 wireless-regdb-2024.10.07.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:30 wireless-regdb-2024.10.07.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  3,4M ian 16  2022 wpa_supplicant-2.10.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 13:42 wpa_supplicant-2.10.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  164K nov 29  2021 xauth-1.1.1.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:42 xauth-1.1.1.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  141K oct  9  2020 xcb-proto-1.14.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:45 xcb-proto-1.14.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  291K oct 15  2014 xcb-util-0.4.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:13 xcb-util-0.4.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  134K apr 28  2023 xdpyinfo-1.3.4.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:42 xdpyinfo-1.3.4.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  306K ian 24  2022 xf86-input-libinput-1.2.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:34 xf86-input-libinput-1.2.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  331K mai  7  2015 xf86-video-cirrus-1.5.3.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:44 xf86-video-cirrus-1.5.3.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  289K mai 30  2018 xf86-video-fbdev-0.5.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:43 xf86-video-fbdev-0.5.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  298K sep 11  2020 xf86-video-vesa-2.5.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:43 xf86-video-vesa-2.5.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  463K mai 17  2018 xf86-video-vmware-13.3.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:44 xf86-video-vmware-13.3.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  136K feb 20  2019 xhost-1.0.8.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:42 xhost-1.0.8.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  173K mar  3  2019 xinit-1.4.1.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:34 xinit-1.4.1.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  159K iul 17  2019 xinput-1.6.3.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:34 xinput-1.6.3.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  246K mar 17  2021 xkbcomp-1.4.5.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:34 xkbcomp-1.4.5.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  853K feb  8  2022 xkeyboard-config-2.35.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:51 xkeyboard-config-2.35.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  249K sep 24  2019 XML-Parser-2.46.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 11:58 XML-Parser-2.46.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  153K nov 18  2015 xmlto-0.0.28.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:11 xmlto-0.0.28.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  5,7M sep  1  2008 xmlts20080827.tar
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:55 xmlts20080827.tar.done
+-rw-r--r--  1 georgeca georgeca  137K iul 11  2022 xmodmap-1.0.11.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:43 xmodmap-1.0.11.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  851K sep 15  2021 xorgproto-2021.5.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:55 xorgproto-2021.5.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  4,8M mar 29  2023 xorg-server-21.1.8.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 12:48 xorg-server-21.1.8.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  168K aug 12  2019 xrandr-1.5.1.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:51 xrandr-1.5.1.tar.xz.done
+-rw-r--r--  1 georgeca georgeca  143K mar 10  2018 xset-1.2.4.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:40 xset-1.2.4.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  182K mar 16  2019 xtrans-1.4.0.tar.bz2
+-rw-r--r--  1 georgeca georgeca   463 mai 24 10:17 xtrans-1.4.0.tar.bz2.done
+-rw-r--r--  1 georgeca georgeca  2,0M aug 12  2022 xz-5.2.6.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:33 xz-5.2.6.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  596K iun 18  2020 yaml-0.2.5.tar.gz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:52 yaml-0.2.5.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  241K iun  5 14:00 YoctoTutorials.git  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<!!!!!!!
+-rw-r--r--  1 georgeca georgeca  1,1M sep 24  2008 zip30.tar.gz  
+-rw-r--r--  1 georgeca georgeca   463 mai 24 14:45 zip30.tar.gz.done
+-rw-r--r--  1 georgeca georgeca  457K ian 16  2017 zlib-1.2.11.tar.xz
+-rw-r--r--  1 georgeca georgeca   463 mai 24 09:15 zlib-1.2.11.tar.xz.done

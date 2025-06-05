@@ -1,0 +1,1 @@
+Create a new recipe that downloads source code from a given github repository. The goal is to understand the Yocto Project workflow around do_fetch() build task.
