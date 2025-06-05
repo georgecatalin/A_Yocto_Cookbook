@@ -1,0 +1,753 @@
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cp -r ../poky/meta-do_fetch_example/ ../poky/meta-do_unpack_example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ source ../poky/oe-init-build-env .
+
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+
+Common targets are:
+    core-image-minimal
+    core-image-full-cmdline
+    core-image-sato
+    core-image-weston
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like 'runqemu qemux86'
+
+Other commonly useful commands are:
+ - 'devtool' and 'recipetool' handle common recipe tasks
+ - 'bitbake-layers' handles common layer tasks
+ - 'oe-pkgdata-util' handles common target package tasks
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-do_fetch_example  /home/georgeca/yocto_tutorial/poky/meta-do_fetch_example  6
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers remove-layer ../poky/meta-do_fetch_example/
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers append-layer ../poky/meta-do_unpack_example/
+NOTE: Starting bitbake server...
+usage: bitbake-layers [-d] [-q] [-F] [--color COLOR] [-h] <subcommand> ...
+bitbake-layers: error: argument <subcommand>: invalid choice: 'append-layer' (choose from 'show-layers', 'show-overlayed', 'show-recipes', 'show-appends', 'show-cross-depends', 'layerindex-fetch', 'layerindex-show-depends', 'add-layer', 'remove-layer', 'flatten', 'create-layer')
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers add-layer ../poky/meta-do_unpack_example/
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-do_unpack_example  /home/georgeca/yocto_tutorial/poky/meta-do_unpack_example  6
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^S=
+S="/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^WORKDIR=
+WORKDIR="/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls -lh /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0
+total 32K
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:10 recipe-sysroot
+drwxr-xr-x 3 georgeca georgeca 4,0K iun  5 14:00 recipe-sysroot-native
+drwxr-xr-x 2 georgeca georgeca  20K iun  5 14:10 temp
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls -lh /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/temp/
+total 2,4M
+lrwxrwxrwx 1 georgeca georgeca   39 mai 27 16:20 depsig.do_deploy_source_date_epoch -> depsig.do_deploy_source_date_epoch.6058
+-rw-rw-r-- 1 georgeca georgeca  471 mai 27 16:20 depsig.do_deploy_source_date_epoch.6058
+lrwxrwxrwx 1 georgeca georgeca   22 mai 27 16:20 depsig.do_package -> depsig.do_package.6162
+-rw-r--r-- 1 georgeca georgeca 5,8K mai 27 16:20 depsig.do_package.6162
+lrwxrwxrwx 1 georgeca georgeca   26 mai 27 16:20 depsig.do_packagedata -> depsig.do_packagedata.6298
+-rw-rw-r-- 1 georgeca georgeca 3,6K mai 27 16:20 depsig.do_packagedata.6298
+lrwxrwxrwx 1 georgeca georgeca   25 mai 27 16:20 depsig.do_package_qa -> depsig.do_package_qa.6345
+-rw-r--r-- 1 georgeca georgeca  197 mai 27 16:20 depsig.do_package_qa.6345
+lrwxrwxrwx 1 georgeca georgeca   32 mai 27 16:20 depsig.do_package_write_rpm -> depsig.do_package_write_rpm.6346
+-rw-r--r-- 1 georgeca georgeca  715 mai 27 16:20 depsig.do_package_write_rpm.6346
+lrwxrwxrwx 1 georgeca georgeca   27 mai 27 16:20 depsig.do_populate_lic -> depsig.do_populate_lic.6057
+-rw-rw-r-- 1 georgeca georgeca  655 mai 27 16:20 depsig.do_populate_lic.6057
+lrwxrwxrwx 1 georgeca georgeca   31 mai 27 17:23 depsig.do_populate_sysroot -> depsig.do_populate_sysroot.6945
+-rw-rw-r-- 1 georgeca georgeca  882 mai 27 16:20 depsig.do_populate_sysroot.6164
+-rw-rw-r-- 1 georgeca georgeca  882 mai 27 17:23 depsig.do_populate_sysroot.6945
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 log.do_compile -> log.do_compile.6917
+-rw-r--r-- 1 georgeca georgeca  110 mai 27 16:20 log.do_compile.6135
+-rw-r--r-- 1 georgeca georgeca  110 mai 27 17:23 log.do_compile.6917
+lrwxrwxrwx 1 georgeca georgeca   21 mai 27 17:23 log.do_configure -> log.do_configure.6909
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 16:20 log.do_configure.6127
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 17:23 log.do_configure.6909
+lrwxrwxrwx 1 georgeca georgeca   36 mai 27 16:20 log.do_deploy_source_date_epoch -> log.do_deploy_source_date_epoch.6058
+-rw-r--r-- 1 georgeca georgeca 2,6K mai 27 16:20 log.do_deploy_source_date_epoch.6058
+lrwxrwxrwx 1 georgeca georgeca   26 mai 27 18:11 log.do_display_banner -> log.do_display_banner.7839
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 16:20 log.do_display_banner.6018
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 17:11 log.do_display_banner.6703
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 17:23 log.do_display_banner.6879
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 17:36 log.do_display_banner.7332
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 17:44 log.do_display_banner.7505
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 18:08 log.do_display_banner.7665
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 18:11 log.do_display_banner.7839
+lrwxrwxrwx 1 georgeca georgeca   17 iun  5 14:10 log.do_fetch -> log.do_fetch.7703
+-rw-r--r-- 1 georgeca georgeca  176 mai 27 16:20 log.do_fetch.6020
+-rw-r--r-- 1 georgeca georgeca  176 mai 27 17:23 log.do_fetch.6882
+-rw-r--r-- 1 georgeca georgeca 4,4K iun  5 14:00 log.do_fetch.7011
+-rw-r--r-- 1 georgeca georgeca  785 iun  5 14:10 log.do_fetch.7623
+-rw-r--r-- 1 georgeca georgeca  13K iun  5 14:10 log.do_fetch.7703
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 log.do_install -> log.do_install.6932
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 16:20 log.do_install.6150
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 17:23 log.do_install.6932
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 log.do_package -> log.do_package.6944
+-rw-r--r-- 1 georgeca georgeca 9,4K mai 27 16:20 log.do_package.6162
+-rw-r--r-- 1 georgeca georgeca 6,5K mai 27 17:23 log.do_package.6944
+lrwxrwxrwx 1 georgeca georgeca   23 mai 27 16:20 log.do_packagedata -> log.do_packagedata.6298
+-rw-r--r-- 1 georgeca georgeca 3,0K mai 27 16:20 log.do_packagedata.6298
+lrwxrwxrwx 1 georgeca georgeca   32 mai 27 17:26 log.do_packagedata_setscene -> log.do_packagedata_setscene.7092
+-rw-r--r-- 1 georgeca georgeca 1,7K mai 27 17:26 log.do_packagedata_setscene.7092
+lrwxrwxrwx 1 georgeca georgeca   22 mai 27 16:20 log.do_package_qa -> log.do_package_qa.6345
+-rw-r--r-- 1 georgeca georgeca 3,3K mai 27 16:20 log.do_package_qa.6345
+lrwxrwxrwx 1 georgeca georgeca   31 mai 27 17:26 log.do_package_qa_setscene -> log.do_package_qa_setscene.7044
+-rw-r--r-- 1 georgeca georgeca  450 mai 27 17:26 log.do_package_qa_setscene.7044
+lrwxrwxrwx 1 georgeca georgeca   29 mai 27 16:20 log.do_package_write_rpm -> log.do_package_write_rpm.6346
+-rw-r--r-- 1 georgeca georgeca 5,4K mai 27 16:20 log.do_package_write_rpm.6346
+lrwxrwxrwx 1 georgeca georgeca   38 mai 27 17:26 log.do_package_write_rpm_setscene -> log.do_package_write_rpm_setscene.7045
+-rw-r--r-- 1 georgeca georgeca 1,1K mai 27 17:11 log.do_package_write_rpm_setscene.6702
+-rw-r--r-- 1 georgeca georgeca  781 mai 27 17:26 log.do_package_write_rpm_setscene.7045
+lrwxrwxrwx 1 georgeca georgeca   17 mai 27 17:23 log.do_patch -> log.do_patch.6892
+-rw-r--r-- 1 georgeca georgeca 1,9K mai 27 16:20 log.do_patch.6037
+-rw-r--r-- 1 georgeca georgeca 1,9K mai 27 17:23 log.do_patch.6892
+lrwxrwxrwx 1 georgeca georgeca   24 mai 27 16:20 log.do_populate_lic -> log.do_populate_lic.6057
+-rw-r--r-- 1 georgeca georgeca 2,8K mai 27 16:20 log.do_populate_lic.6057
+lrwxrwxrwx 1 georgeca georgeca   28 mai 27 17:23 log.do_populate_sysroot -> log.do_populate_sysroot.6945
+-rw-r--r-- 1 georgeca georgeca 4,4K mai 27 16:20 log.do_populate_sysroot.6164
+-rw-r--r-- 1 georgeca georgeca 4,5K mai 27 17:23 log.do_populate_sysroot.6945
+lrwxrwxrwx 1 georgeca georgeca   37 mai 27 17:26 log.do_populate_sysroot_setscene -> log.do_populate_sysroot_setscene.7046
+-rw-r--r-- 1 georgeca georgeca 1017 mai 27 17:26 log.do_populate_sysroot_setscene.7046
+lrwxrwxrwx 1 georgeca georgeca   34 mai 27 17:23 log.do_prepare_recipe_sysroot -> log.do_prepare_recipe_sysroot.6886
+-rw-r--r-- 1 georgeca georgeca 2,4K mai 27 16:20 log.do_prepare_recipe_sysroot.6029
+-rw-r--r-- 1 georgeca georgeca 2,4K mai 27 17:23 log.do_prepare_recipe_sysroot.6886
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 18:11 log.do_rm_work -> log.do_rm_work.7842
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 16:20 log.do_rm_work.6438
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 17:11 log.do_rm_work.6724
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 17:26 log.do_rm_work.7110
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 17:36 log.do_rm_work.7335
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 17:44 log.do_rm_work.7508
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 18:08 log.do_rm_work.7668
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 18:11 log.do_rm_work.7842
+lrwxrwxrwx 1 georgeca georgeca   18 mai 27 17:23 log.do_unpack -> log.do_unpack.6887
+-rw-r--r-- 1 georgeca georgeca  542 mai 27 16:20 log.do_unpack.6030
+-rw-r--r-- 1 georgeca georgeca  542 mai 27 17:23 log.do_unpack.6887
+-rw-r--r-- 1 georgeca georgeca 2,2K iun  5 14:10 log.task_order
+-rw-r--r-- 1 georgeca georgeca  308 mai 27 16:20 run.base_do_fetch.6020
+-rw-r--r-- 1 georgeca georgeca  308 mai 27 17:23 run.base_do_fetch.6882
+-rw-r--r-- 1 georgeca georgeca  308 iun  5 14:00 run.base_do_fetch.7011
+-rw-r--r-- 1 georgeca georgeca  308 iun  5 14:10 run.base_do_fetch.7623
+-rw-r--r-- 1 georgeca georgeca  308 iun  5 14:10 run.base_do_fetch.7703
+-rw-r--r-- 1 georgeca georgeca  326 mai 27 16:20 run.base_do_unpack.6030
+-rw-r--r-- 1 georgeca georgeca  326 mai 27 17:23 run.base_do_unpack.6887
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 16:20 run.BUILDSPEC.6346
+-rw-r--r-- 1 georgeca georgeca  252 mai 27 16:20 run.create_source_date_epoch_stamp.6030
+-rw-r--r-- 1 georgeca georgeca  252 mai 27 17:23 run.create_source_date_epoch_stamp.6887
+-rw-r--r-- 1 georgeca georgeca 5,1K mai 27 16:20 run.debian_package_name_hook.6162
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 run.do_compile -> run.do_compile.6917
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 16:20 run.do_compile.6135
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 17:23 run.do_compile.6917
+lrwxrwxrwx 1 georgeca georgeca   21 mai 27 17:23 run.do_configure -> run.do_configure.6909
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 16:20 run.do_configure.6127
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:23 run.do_configure.6909
+lrwxrwxrwx 1 georgeca georgeca   36 mai 27 16:20 run.do_deploy_source_date_epoch -> run.do_deploy_source_date_epoch.6058
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 16:20 run.do_deploy_source_date_epoch.6058
+lrwxrwxrwx 1 georgeca georgeca   26 mai 27 18:11 run.do_display_banner -> run.do_display_banner.7839
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 16:20 run.do_display_banner.6018
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 17:11 run.do_display_banner.6703
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 17:23 run.do_display_banner.6879
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 17:36 run.do_display_banner.7332
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 17:44 run.do_display_banner.7505
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 18:08 run.do_display_banner.7665
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 18:11 run.do_display_banner.7839
+lrwxrwxrwx 1 georgeca georgeca   17 iun  5 14:10 run.do_fetch -> run.do_fetch.7703
+-rw-r--r-- 1 georgeca georgeca  364 mai 27 16:20 run.do_fetch.6020
+-rw-r--r-- 1 georgeca georgeca  364 mai 27 17:23 run.do_fetch.6882
+-rw-r--r-- 1 georgeca georgeca  364 iun  5 14:00 run.do_fetch.7011
+-rw-r--r-- 1 georgeca georgeca  364 iun  5 14:10 run.do_fetch.7623
+-rw-r--r-- 1 georgeca georgeca  364 iun  5 14:10 run.do_fetch.7703
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 run.do_install -> run.do_install.6932
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 16:20 run.do_install.6150
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:23 run.do_install.6932
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 run.do_package -> run.do_package.6944
+-rw-r--r-- 1 georgeca georgeca  98K mai 27 16:20 run.do_package.6162
+-rw-r--r-- 1 georgeca georgeca  98K mai 27 17:23 run.do_package.6944
+lrwxrwxrwx 1 georgeca georgeca   23 mai 27 16:20 run.do_packagedata -> run.do_packagedata.6298
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.do_packagedata.6298
+lrwxrwxrwx 1 georgeca georgeca   32 mai 27 17:26 run.do_packagedata_setscene -> run.do_packagedata_setscene.7092
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:26 run.do_packagedata_setscene.7092
+lrwxrwxrwx 1 georgeca georgeca   22 mai 27 16:20 run.do_package_qa -> run.do_package_qa.6345
+-rw-r--r-- 1 georgeca georgeca  17K mai 27 16:20 run.do_package_qa.6345
+lrwxrwxrwx 1 georgeca georgeca   31 mai 27 17:26 run.do_package_qa_setscene -> run.do_package_qa_setscene.7044
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:26 run.do_package_qa_setscene.7044
+-rw-r--r-- 1 georgeca georgeca  34K mai 27 16:20 run.do_package_rpm.6346
+lrwxrwxrwx 1 georgeca georgeca   29 mai 27 16:20 run.do_package_write_rpm -> run.do_package_write_rpm.6346
+-rw-r--r-- 1 georgeca georgeca  36K mai 27 16:20 run.do_package_write_rpm.6346
+lrwxrwxrwx 1 georgeca georgeca   38 mai 27 17:26 run.do_package_write_rpm_setscene -> run.do_package_write_rpm_setscene.7045
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:11 run.do_package_write_rpm_setscene.6702
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:26 run.do_package_write_rpm_setscene.7045
+lrwxrwxrwx 1 georgeca georgeca   17 mai 27 17:23 run.do_patch -> run.do_patch.6892
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.do_patch.6037
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:23 run.do_patch.6892
+lrwxrwxrwx 1 georgeca georgeca   24 mai 27 16:20 run.do_populate_lic -> run.do_populate_lic.6057
+-rw-r--r-- 1 georgeca georgeca 8,7K mai 27 16:20 run.do_populate_lic.6057
+lrwxrwxrwx 1 georgeca georgeca   28 mai 27 17:23 run.do_populate_sysroot -> run.do_populate_sysroot.6945
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.do_populate_sysroot.6164
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:23 run.do_populate_sysroot.6945
+lrwxrwxrwx 1 georgeca georgeca   37 mai 27 17:26 run.do_populate_sysroot_setscene -> run.do_populate_sysroot_setscene.7046
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:26 run.do_populate_sysroot_setscene.7046
+lrwxrwxrwx 1 georgeca georgeca   34 mai 27 17:23 run.do_prepare_recipe_sysroot -> run.do_prepare_recipe_sysroot.6886
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.do_prepare_recipe_sysroot.6029
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.do_prepare_recipe_sysroot.6886
+-rw-r--r-- 1 georgeca georgeca 4,3K mai 27 16:20 run.do_qa_configure.6127
+-rw-r--r-- 1 georgeca georgeca 4,3K mai 27 17:23 run.do_qa_configure.6909
+-rw-r--r-- 1 georgeca georgeca 3,4K mai 27 16:20 run.do_qa_patch.6037
+-rw-r--r-- 1 georgeca georgeca 3,4K mai 27 17:23 run.do_qa_patch.6892
+-rw-r--r-- 1 georgeca georgeca 2,3K mai 27 16:20 run.do_qa_staging.6164
+-rw-r--r-- 1 georgeca georgeca 2,3K mai 27 17:23 run.do_qa_staging.6945
+-rw-r--r-- 1 georgeca georgeca 1015 mai 27 16:20 run.do_qa_unpack.6030
+-rw-r--r-- 1 georgeca georgeca 1015 mai 27 17:23 run.do_qa_unpack.6887
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 18:11 run.do_rm_work -> run.do_rm_work.7842
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 16:20 run.do_rm_work.6438
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 17:11 run.do_rm_work.6724
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 17:26 run.do_rm_work.7110
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 17:36 run.do_rm_work.7335
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 17:44 run.do_rm_work.7508
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 18:08 run.do_rm_work.7668
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 18:11 run.do_rm_work.7842
+lrwxrwxrwx 1 georgeca georgeca   18 mai 27 17:23 run.do_unpack -> run.do_unpack.6887
+-rw-r--r-- 1 georgeca georgeca  384 mai 27 16:20 run.do_unpack.6030
+-rw-r--r-- 1 georgeca georgeca  384 mai 27 17:23 run.do_unpack.6887
+-rw-r--r-- 1 georgeca georgeca 6,9K mai 27 16:20 run.emit_pkgdata.6162
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6029
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6037
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6127
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6150
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6162
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6164
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6345
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6346
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6886
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6892
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6909
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6932
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6944
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6945
+-rw-r--r-- 1 georgeca georgeca  28K iun  5 14:00 run.extend_recipe_sysroot.7011
+-rw-r--r-- 1 georgeca georgeca  28K iun  5 14:10 run.extend_recipe_sysroot.7623
+-rw-r--r-- 1 georgeca georgeca  28K iun  5 14:10 run.extend_recipe_sysroot.7703
+-rw-r--r-- 1 georgeca georgeca 9,1K mai 27 16:20 run.fixup_perms.6162
+-rw-r--r-- 1 georgeca georgeca  407 mai 27 16:20 run.package_convert_pr_autoinc.6162
+-rw-r--r-- 1 georgeca georgeca  407 mai 27 17:23 run.package_convert_pr_autoinc.6944
+-rwxrwxr-x 1 georgeca georgeca  11K mai 27 16:20 run.packagedata_translate_pr_autoinc.6298
+-rw-r--r-- 1 georgeca georgeca 5,4K mai 27 16:20 run.package_depchains.6162
+-rw-r--r-- 1 georgeca georgeca 1,8K mai 27 16:20 run.package_do_filedeps.6162
+-rw-r--r-- 1 georgeca georgeca 3,1K mai 27 16:20 run.package_do_pkgconfig.6162
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 16:20 run.package_do_shlibs.6162
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.package_do_split_locales.6162
+-rw-r--r-- 1 georgeca georgeca 1,7K mai 27 16:20 run.package_fixsymlinks.6162
+-rw-r--r-- 1 georgeca georgeca 2,3K mai 27 16:20 run.package_get_auto_pr.6298
+-rw-r--r-- 1 georgeca georgeca 5,2K mai 27 16:20 run.package_name_hook.6162
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 16:20 run.package_prepare_pkgdata.6162
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 17:23 run.package_prepare_pkgdata.6944
+-rw-r--r-- 1 georgeca georgeca 2,4K mai 27 16:20 run.patch_do_patch.6037
+-rw-r--r-- 1 georgeca georgeca 2,4K mai 27 17:23 run.patch_do_patch.6892
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 16:20 run.perform_packagecopy.6162
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 17:23 run.perform_packagecopy.6944
+-rw-r--r-- 1 georgeca georgeca 4,5K mai 27 16:20 run.populate_lic_qa_checksum.6057
+-rw-r--r-- 1 georgeca georgeca 7,7K mai 27 16:20 run.populate_packages.6162
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 16:20 run.read_shlibdeps.6162
+-rw-r--r-- 1 georgeca georgeca 1,6K mai 27 16:20 run.read_subpackage_metadata.6345
+-rw-r--r-- 1 georgeca georgeca 1,6K mai 27 16:20 run.read_subpackage_metadata.6346
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 16:20 run.remove_libtool_la.6150
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:23 run.remove_libtool_la.6932
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 16:20 run.split_and_strip_files.6162
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 16:20 run.sstate_create_package.6057
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 16:20 run.sstate_create_package.6058
+-rwxrwxr-x 1 georgeca georgeca  16K mai 27 16:20 run.sstate_create_package.6162
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 16:20 run.sstate_create_package.6164
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 16:20 run.sstate_create_package.6298
+-rwxrwxr-x 1 georgeca georgeca  16K mai 27 16:20 run.sstate_create_package.6345
+-rwxrwxr-x 1 georgeca georgeca  16K mai 27 16:20 run.sstate_create_package.6346
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 17:23 run.sstate_create_package.6945
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6057
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6058
+-rw-r--r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6162
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6164
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6298
+-rw-r--r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6345
+-rw-r--r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6346
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 17:23 run.sstate_hardcode_path.6945
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6057
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6058
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6162
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6164
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6298
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6345
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6346
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:11 run.sstate_hardcode_path_unpack.6702
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:23 run.sstate_hardcode_path_unpack.6945
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:26 run.sstate_hardcode_path_unpack.7044
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:26 run.sstate_hardcode_path_unpack.7045
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:26 run.sstate_hardcode_path_unpack.7046
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:26 run.sstate_hardcode_path_unpack.7092
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6057
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6058
+-rw-r--r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6162
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6164
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6298
+-rw-r--r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6345
+-rw-r--r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6346
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 17:23 run.sstate_report_unihash.6945
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6057
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6058
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6162
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6164
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6298
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6345
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6346
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 17:23 run.sstate_task_postfunc.6945
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6057
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6058
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6162
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6164
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6298
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6345
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6346
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 17:23 run.sstate_task_prefunc.6944
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 17:23 run.sstate_task_prefunc.6945
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:11 run.sstate_unpack_package.6702
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:26 run.sstate_unpack_package.7044
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:26 run.sstate_unpack_package.7045
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:26 run.sstate_unpack_package.7046
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:26 run.sstate_unpack_package.7092
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 16:20 run.sysroot_stage_all.6164
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 17:23 run.sysroot_stage_all.6945
+-rw-r--r-- 1 georgeca georgeca  585 mai 27 16:20 run.sysroot_strip.6164
+-rw-r--r-- 1 georgeca georgeca  585 mai 27 17:23 run.sysroot_strip.6945
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6057
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6058
+-rw-r--r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6162
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6164
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6298
+-rw-r--r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6345
+-rw-r--r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6346
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 17:23 run.target_add_sysroot_deps.6945
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6057
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6058
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6162
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6164
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6298
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6345
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6346
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:11 run.uninative_changeinterp.6702
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:23 run.uninative_changeinterp.6945
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:26 run.uninative_changeinterp.7044
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:26 run.uninative_changeinterp.7045
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:26 run.uninative_changeinterp.7046
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:26 run.uninative_changeinterp.7092
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.write_specfile.6346
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -c do_unpack example
+Loading cache: 100% |###################################################################################################################################################| Time: 0:00:00
+Loaded 2785 entries from dependency cache.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-do_unpack_example = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+
+Initialising tasks: 100% |##############################################################################################################################################| Time: 0:00:00
+Sstate summary: Wanted 0 Local 0 Mirrors 0 Missed 0 Current 0 (0% match, 0% complete)
+NOTE: No setscene tasks
+NOTE: Executing Tasks
+NOTE: Tasks Summary: Attempted 2 tasks of which 1 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls -lh /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/temp/
+total 2,5M
+lrwxrwxrwx 1 georgeca georgeca   39 mai 27 16:20 depsig.do_deploy_source_date_epoch -> depsig.do_deploy_source_date_epoch.6058
+-rw-rw-r-- 1 georgeca georgeca  471 mai 27 16:20 depsig.do_deploy_source_date_epoch.6058
+lrwxrwxrwx 1 georgeca georgeca   22 mai 27 16:20 depsig.do_package -> depsig.do_package.6162
+-rw-r--r-- 1 georgeca georgeca 5,8K mai 27 16:20 depsig.do_package.6162
+lrwxrwxrwx 1 georgeca georgeca   26 mai 27 16:20 depsig.do_packagedata -> depsig.do_packagedata.6298
+-rw-rw-r-- 1 georgeca georgeca 3,6K mai 27 16:20 depsig.do_packagedata.6298
+lrwxrwxrwx 1 georgeca georgeca   25 mai 27 16:20 depsig.do_package_qa -> depsig.do_package_qa.6345
+-rw-r--r-- 1 georgeca georgeca  197 mai 27 16:20 depsig.do_package_qa.6345
+lrwxrwxrwx 1 georgeca georgeca   32 mai 27 16:20 depsig.do_package_write_rpm -> depsig.do_package_write_rpm.6346
+-rw-r--r-- 1 georgeca georgeca  715 mai 27 16:20 depsig.do_package_write_rpm.6346
+lrwxrwxrwx 1 georgeca georgeca   27 mai 27 16:20 depsig.do_populate_lic -> depsig.do_populate_lic.6057
+-rw-rw-r-- 1 georgeca georgeca  655 mai 27 16:20 depsig.do_populate_lic.6057
+lrwxrwxrwx 1 georgeca georgeca   31 mai 27 17:23 depsig.do_populate_sysroot -> depsig.do_populate_sysroot.6945
+-rw-rw-r-- 1 georgeca georgeca  882 mai 27 16:20 depsig.do_populate_sysroot.6164
+-rw-rw-r-- 1 georgeca georgeca  882 mai 27 17:23 depsig.do_populate_sysroot.6945
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 log.do_compile -> log.do_compile.6917
+-rw-r--r-- 1 georgeca georgeca  110 mai 27 16:20 log.do_compile.6135
+-rw-r--r-- 1 georgeca georgeca  110 mai 27 17:23 log.do_compile.6917
+lrwxrwxrwx 1 georgeca georgeca   21 mai 27 17:23 log.do_configure -> log.do_configure.6909
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 16:20 log.do_configure.6127
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 17:23 log.do_configure.6909
+lrwxrwxrwx 1 georgeca georgeca   36 mai 27 16:20 log.do_deploy_source_date_epoch -> log.do_deploy_source_date_epoch.6058
+-rw-r--r-- 1 georgeca georgeca 2,6K mai 27 16:20 log.do_deploy_source_date_epoch.6058
+lrwxrwxrwx 1 georgeca georgeca   26 mai 27 18:11 log.do_display_banner -> log.do_display_banner.7839
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 16:20 log.do_display_banner.6018
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 17:11 log.do_display_banner.6703
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 17:23 log.do_display_banner.6879
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 17:36 log.do_display_banner.7332
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 17:44 log.do_display_banner.7505
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 18:08 log.do_display_banner.7665
+-rw-r--r-- 1 georgeca georgeca  341 mai 27 18:11 log.do_display_banner.7839
+lrwxrwxrwx 1 georgeca georgeca   17 iun  5 14:10 log.do_fetch -> log.do_fetch.7703
+-rw-r--r-- 1 georgeca georgeca  176 mai 27 16:20 log.do_fetch.6020
+-rw-r--r-- 1 georgeca georgeca  176 mai 27 17:23 log.do_fetch.6882
+-rw-r--r-- 1 georgeca georgeca 4,4K iun  5 14:00 log.do_fetch.7011
+-rw-r--r-- 1 georgeca georgeca  785 iun  5 14:10 log.do_fetch.7623
+-rw-r--r-- 1 georgeca georgeca  13K iun  5 14:10 log.do_fetch.7703
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 log.do_install -> log.do_install.6932
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 16:20 log.do_install.6150
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 17:23 log.do_install.6932
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 log.do_package -> log.do_package.6944
+-rw-r--r-- 1 georgeca georgeca 9,4K mai 27 16:20 log.do_package.6162
+-rw-r--r-- 1 georgeca georgeca 6,5K mai 27 17:23 log.do_package.6944
+lrwxrwxrwx 1 georgeca georgeca   23 mai 27 16:20 log.do_packagedata -> log.do_packagedata.6298
+-rw-r--r-- 1 georgeca georgeca 3,0K mai 27 16:20 log.do_packagedata.6298
+lrwxrwxrwx 1 georgeca georgeca   32 mai 27 17:26 log.do_packagedata_setscene -> log.do_packagedata_setscene.7092
+-rw-r--r-- 1 georgeca georgeca 1,7K mai 27 17:26 log.do_packagedata_setscene.7092
+lrwxrwxrwx 1 georgeca georgeca   22 mai 27 16:20 log.do_package_qa -> log.do_package_qa.6345
+-rw-r--r-- 1 georgeca georgeca 3,3K mai 27 16:20 log.do_package_qa.6345
+lrwxrwxrwx 1 georgeca georgeca   31 mai 27 17:26 log.do_package_qa_setscene -> log.do_package_qa_setscene.7044
+-rw-r--r-- 1 georgeca georgeca  450 mai 27 17:26 log.do_package_qa_setscene.7044
+lrwxrwxrwx 1 georgeca georgeca   29 mai 27 16:20 log.do_package_write_rpm -> log.do_package_write_rpm.6346
+-rw-r--r-- 1 georgeca georgeca 5,4K mai 27 16:20 log.do_package_write_rpm.6346
+lrwxrwxrwx 1 georgeca georgeca   38 mai 27 17:26 log.do_package_write_rpm_setscene -> log.do_package_write_rpm_setscene.7045
+-rw-r--r-- 1 georgeca georgeca 1,1K mai 27 17:11 log.do_package_write_rpm_setscene.6702
+-rw-r--r-- 1 georgeca georgeca  781 mai 27 17:26 log.do_package_write_rpm_setscene.7045
+lrwxrwxrwx 1 georgeca georgeca   17 mai 27 17:23 log.do_patch -> log.do_patch.6892
+-rw-r--r-- 1 georgeca georgeca 1,9K mai 27 16:20 log.do_patch.6037
+-rw-r--r-- 1 georgeca georgeca 1,9K mai 27 17:23 log.do_patch.6892
+lrwxrwxrwx 1 georgeca georgeca   24 mai 27 16:20 log.do_populate_lic -> log.do_populate_lic.6057
+-rw-r--r-- 1 georgeca georgeca 2,8K mai 27 16:20 log.do_populate_lic.6057
+lrwxrwxrwx 1 georgeca georgeca   28 mai 27 17:23 log.do_populate_sysroot -> log.do_populate_sysroot.6945
+-rw-r--r-- 1 georgeca georgeca 4,4K mai 27 16:20 log.do_populate_sysroot.6164
+-rw-r--r-- 1 georgeca georgeca 4,5K mai 27 17:23 log.do_populate_sysroot.6945
+lrwxrwxrwx 1 georgeca georgeca   37 mai 27 17:26 log.do_populate_sysroot_setscene -> log.do_populate_sysroot_setscene.7046
+-rw-r--r-- 1 georgeca georgeca 1017 mai 27 17:26 log.do_populate_sysroot_setscene.7046
+lrwxrwxrwx 1 georgeca georgeca   34 mai 27 17:23 log.do_prepare_recipe_sysroot -> log.do_prepare_recipe_sysroot.6886
+-rw-r--r-- 1 georgeca georgeca 2,4K mai 27 16:20 log.do_prepare_recipe_sysroot.6029
+-rw-r--r-- 1 georgeca georgeca 2,4K mai 27 17:23 log.do_prepare_recipe_sysroot.6886
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 18:11 log.do_rm_work -> log.do_rm_work.7842
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 16:20 log.do_rm_work.6438
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 17:11 log.do_rm_work.6724
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 17:26 log.do_rm_work.7110
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 17:36 log.do_rm_work.7335
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 17:44 log.do_rm_work.7508
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 18:08 log.do_rm_work.7668
+-rw-r--r-- 1 georgeca georgeca   85 mai 27 18:11 log.do_rm_work.7842
+lrwxrwxrwx 1 georgeca georgeca   18 iun  5 14:44 log.do_unpack -> log.do_unpack.9203
+-rw-r--r-- 1 georgeca georgeca  542 mai 27 16:20 log.do_unpack.6030
+-rw-r--r-- 1 georgeca georgeca  542 mai 27 17:23 log.do_unpack.6887
+-rw-r--r-- 1 georgeca georgeca 8,5K iun  5 14:44 log.do_unpack.9203
+-rw-r--r-- 1 georgeca georgeca 2,2K iun  5 14:44 log.task_order
+-rw-r--r-- 1 georgeca georgeca  308 mai 27 16:20 run.base_do_fetch.6020
+-rw-r--r-- 1 georgeca georgeca  308 mai 27 17:23 run.base_do_fetch.6882
+-rw-r--r-- 1 georgeca georgeca  308 iun  5 14:00 run.base_do_fetch.7011
+-rw-r--r-- 1 georgeca georgeca  308 iun  5 14:10 run.base_do_fetch.7623
+-rw-r--r-- 1 georgeca georgeca  308 iun  5 14:10 run.base_do_fetch.7703
+-rw-r--r-- 1 georgeca georgeca  326 mai 27 16:20 run.base_do_unpack.6030
+-rw-r--r-- 1 georgeca georgeca  326 mai 27 17:23 run.base_do_unpack.6887
+-rw-r--r-- 1 georgeca georgeca  326 iun  5 14:44 run.base_do_unpack.9203
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 16:20 run.BUILDSPEC.6346
+-rw-r--r-- 1 georgeca georgeca  252 mai 27 16:20 run.create_source_date_epoch_stamp.6030
+-rw-r--r-- 1 georgeca georgeca  252 mai 27 17:23 run.create_source_date_epoch_stamp.6887
+-rw-r--r-- 1 georgeca georgeca  252 iun  5 14:44 run.create_source_date_epoch_stamp.9203
+-rw-r--r-- 1 georgeca georgeca 5,1K mai 27 16:20 run.debian_package_name_hook.6162
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 run.do_compile -> run.do_compile.6917
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 16:20 run.do_compile.6135
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 17:23 run.do_compile.6917
+lrwxrwxrwx 1 georgeca georgeca   21 mai 27 17:23 run.do_configure -> run.do_configure.6909
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 16:20 run.do_configure.6127
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:23 run.do_configure.6909
+lrwxrwxrwx 1 georgeca georgeca   36 mai 27 16:20 run.do_deploy_source_date_epoch -> run.do_deploy_source_date_epoch.6058
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 16:20 run.do_deploy_source_date_epoch.6058
+lrwxrwxrwx 1 georgeca georgeca   26 mai 27 18:11 run.do_display_banner -> run.do_display_banner.7839
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 16:20 run.do_display_banner.6018
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 17:11 run.do_display_banner.6703
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 17:23 run.do_display_banner.6879
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 17:36 run.do_display_banner.7332
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 17:44 run.do_display_banner.7505
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 18:08 run.do_display_banner.7665
+-rw-r--r-- 1 georgeca georgeca  374 mai 27 18:11 run.do_display_banner.7839
+lrwxrwxrwx 1 georgeca georgeca   17 iun  5 14:10 run.do_fetch -> run.do_fetch.7703
+-rw-r--r-- 1 georgeca georgeca  364 mai 27 16:20 run.do_fetch.6020
+-rw-r--r-- 1 georgeca georgeca  364 mai 27 17:23 run.do_fetch.6882
+-rw-r--r-- 1 georgeca georgeca  364 iun  5 14:00 run.do_fetch.7011
+-rw-r--r-- 1 georgeca georgeca  364 iun  5 14:10 run.do_fetch.7623
+-rw-r--r-- 1 georgeca georgeca  364 iun  5 14:10 run.do_fetch.7703
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 run.do_install -> run.do_install.6932
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 16:20 run.do_install.6150
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:23 run.do_install.6932
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 17:23 run.do_package -> run.do_package.6944
+-rw-r--r-- 1 georgeca georgeca  98K mai 27 16:20 run.do_package.6162
+-rw-r--r-- 1 georgeca georgeca  98K mai 27 17:23 run.do_package.6944
+lrwxrwxrwx 1 georgeca georgeca   23 mai 27 16:20 run.do_packagedata -> run.do_packagedata.6298
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.do_packagedata.6298
+lrwxrwxrwx 1 georgeca georgeca   32 mai 27 17:26 run.do_packagedata_setscene -> run.do_packagedata_setscene.7092
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:26 run.do_packagedata_setscene.7092
+lrwxrwxrwx 1 georgeca georgeca   22 mai 27 16:20 run.do_package_qa -> run.do_package_qa.6345
+-rw-r--r-- 1 georgeca georgeca  17K mai 27 16:20 run.do_package_qa.6345
+lrwxrwxrwx 1 georgeca georgeca   31 mai 27 17:26 run.do_package_qa_setscene -> run.do_package_qa_setscene.7044
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:26 run.do_package_qa_setscene.7044
+-rw-r--r-- 1 georgeca georgeca  34K mai 27 16:20 run.do_package_rpm.6346
+lrwxrwxrwx 1 georgeca georgeca   29 mai 27 16:20 run.do_package_write_rpm -> run.do_package_write_rpm.6346
+-rw-r--r-- 1 georgeca georgeca  36K mai 27 16:20 run.do_package_write_rpm.6346
+lrwxrwxrwx 1 georgeca georgeca   38 mai 27 17:26 run.do_package_write_rpm_setscene -> run.do_package_write_rpm_setscene.7045
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:11 run.do_package_write_rpm_setscene.6702
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:26 run.do_package_write_rpm_setscene.7045
+lrwxrwxrwx 1 georgeca georgeca   17 mai 27 17:23 run.do_patch -> run.do_patch.6892
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.do_patch.6037
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:23 run.do_patch.6892
+lrwxrwxrwx 1 georgeca georgeca   24 mai 27 16:20 run.do_populate_lic -> run.do_populate_lic.6057
+-rw-r--r-- 1 georgeca georgeca 8,7K mai 27 16:20 run.do_populate_lic.6057
+lrwxrwxrwx 1 georgeca georgeca   28 mai 27 17:23 run.do_populate_sysroot -> run.do_populate_sysroot.6945
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.do_populate_sysroot.6164
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:23 run.do_populate_sysroot.6945
+lrwxrwxrwx 1 georgeca georgeca   37 mai 27 17:26 run.do_populate_sysroot_setscene -> run.do_populate_sysroot_setscene.7046
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 17:26 run.do_populate_sysroot_setscene.7046
+lrwxrwxrwx 1 georgeca georgeca   34 mai 27 17:23 run.do_prepare_recipe_sysroot -> run.do_prepare_recipe_sysroot.6886
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.do_prepare_recipe_sysroot.6029
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.do_prepare_recipe_sysroot.6886
+-rw-r--r-- 1 georgeca georgeca 4,3K mai 27 16:20 run.do_qa_configure.6127
+-rw-r--r-- 1 georgeca georgeca 4,3K mai 27 17:23 run.do_qa_configure.6909
+-rw-r--r-- 1 georgeca georgeca 3,4K mai 27 16:20 run.do_qa_patch.6037
+-rw-r--r-- 1 georgeca georgeca 3,4K mai 27 17:23 run.do_qa_patch.6892
+-rw-r--r-- 1 georgeca georgeca 2,3K mai 27 16:20 run.do_qa_staging.6164
+-rw-r--r-- 1 georgeca georgeca 2,3K mai 27 17:23 run.do_qa_staging.6945
+-rw-r--r-- 1 georgeca georgeca 1015 mai 27 16:20 run.do_qa_unpack.6030
+-rw-r--r-- 1 georgeca georgeca 1015 mai 27 17:23 run.do_qa_unpack.6887
+-rw-r--r-- 1 georgeca georgeca 1015 iun  5 14:44 run.do_qa_unpack.9203
+lrwxrwxrwx 1 georgeca georgeca   19 mai 27 18:11 run.do_rm_work -> run.do_rm_work.7842
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 16:20 run.do_rm_work.6438
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 17:11 run.do_rm_work.6724
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 17:26 run.do_rm_work.7110
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 17:36 run.do_rm_work.7335
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 17:44 run.do_rm_work.7508
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 18:08 run.do_rm_work.7668
+-rwxrwxr-x 1 georgeca georgeca  15K mai 27 18:11 run.do_rm_work.7842
+lrwxrwxrwx 1 georgeca georgeca   18 iun  5 14:44 run.do_unpack -> run.do_unpack.9203
+-rw-r--r-- 1 georgeca georgeca  384 mai 27 16:20 run.do_unpack.6030
+-rw-r--r-- 1 georgeca georgeca  384 mai 27 17:23 run.do_unpack.6887
+-rw-r--r-- 1 georgeca georgeca  384 iun  5 14:44 run.do_unpack.9203
+-rw-r--r-- 1 georgeca georgeca 6,9K mai 27 16:20 run.emit_pkgdata.6162
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6029
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6037
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6127
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6150
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6162
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6164
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6345
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.extend_recipe_sysroot.6346
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6886
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6892
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6909
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6932
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6944
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 17:23 run.extend_recipe_sysroot.6945
+-rw-r--r-- 1 georgeca georgeca  28K iun  5 14:00 run.extend_recipe_sysroot.7011
+-rw-r--r-- 1 georgeca georgeca  28K iun  5 14:10 run.extend_recipe_sysroot.7623
+-rw-r--r-- 1 georgeca georgeca  28K iun  5 14:10 run.extend_recipe_sysroot.7703
+-rw-r--r-- 1 georgeca georgeca 9,1K mai 27 16:20 run.fixup_perms.6162
+-rw-r--r-- 1 georgeca georgeca  407 mai 27 16:20 run.package_convert_pr_autoinc.6162
+-rw-r--r-- 1 georgeca georgeca  407 mai 27 17:23 run.package_convert_pr_autoinc.6944
+-rwxrwxr-x 1 georgeca georgeca  11K mai 27 16:20 run.packagedata_translate_pr_autoinc.6298
+-rw-r--r-- 1 georgeca georgeca 5,4K mai 27 16:20 run.package_depchains.6162
+-rw-r--r-- 1 georgeca georgeca 1,8K mai 27 16:20 run.package_do_filedeps.6162
+-rw-r--r-- 1 georgeca georgeca 3,1K mai 27 16:20 run.package_do_pkgconfig.6162
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 16:20 run.package_do_shlibs.6162
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.package_do_split_locales.6162
+-rw-r--r-- 1 georgeca georgeca 1,7K mai 27 16:20 run.package_fixsymlinks.6162
+-rw-r--r-- 1 georgeca georgeca 2,3K mai 27 16:20 run.package_get_auto_pr.6298
+-rw-r--r-- 1 georgeca georgeca 5,2K mai 27 16:20 run.package_name_hook.6162
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 16:20 run.package_prepare_pkgdata.6162
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 17:23 run.package_prepare_pkgdata.6944
+-rw-r--r-- 1 georgeca georgeca 2,4K mai 27 16:20 run.patch_do_patch.6037
+-rw-r--r-- 1 georgeca georgeca 2,4K mai 27 17:23 run.patch_do_patch.6892
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 16:20 run.perform_packagecopy.6162
+-rw-r--r-- 1 georgeca georgeca  12K mai 27 17:23 run.perform_packagecopy.6944
+-rw-r--r-- 1 georgeca georgeca 4,5K mai 27 16:20 run.populate_lic_qa_checksum.6057
+-rw-r--r-- 1 georgeca georgeca 7,7K mai 27 16:20 run.populate_packages.6162
+-rw-r--r-- 1 georgeca georgeca 1,4K mai 27 16:20 run.read_shlibdeps.6162
+-rw-r--r-- 1 georgeca georgeca 1,6K mai 27 16:20 run.read_subpackage_metadata.6345
+-rw-r--r-- 1 georgeca georgeca 1,6K mai 27 16:20 run.read_subpackage_metadata.6346
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 16:20 run.remove_libtool_la.6150
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:23 run.remove_libtool_la.6932
+-rw-r--r-- 1 georgeca georgeca  16K mai 27 16:20 run.split_and_strip_files.6162
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 16:20 run.sstate_create_package.6057
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 16:20 run.sstate_create_package.6058
+-rwxrwxr-x 1 georgeca georgeca  16K mai 27 16:20 run.sstate_create_package.6162
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 16:20 run.sstate_create_package.6164
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 16:20 run.sstate_create_package.6298
+-rwxrwxr-x 1 georgeca georgeca  16K mai 27 16:20 run.sstate_create_package.6345
+-rwxrwxr-x 1 georgeca georgeca  16K mai 27 16:20 run.sstate_create_package.6346
+-rwxrwxr-x 1 georgeca georgeca  14K mai 27 17:23 run.sstate_create_package.6945
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6057
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6058
+-rw-r--r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6162
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6164
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6298
+-rw-r--r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6345
+-rw-r--r-- 1 georgeca georgeca 2,6K mai 27 16:20 run.sstate_hardcode_path.6346
+-rw-rw-r-- 1 georgeca georgeca 2,6K mai 27 17:23 run.sstate_hardcode_path.6945
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6057
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6058
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6162
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6164
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6298
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6345
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 16:20 run.sstate_hardcode_path_unpack.6346
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:11 run.sstate_hardcode_path_unpack.6702
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:23 run.sstate_hardcode_path_unpack.6945
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:26 run.sstate_hardcode_path_unpack.7044
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:26 run.sstate_hardcode_path_unpack.7045
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:26 run.sstate_hardcode_path_unpack.7046
+-rw-r--r-- 1 georgeca georgeca 2,5K mai 27 17:26 run.sstate_hardcode_path_unpack.7092
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6057
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6058
+-rw-r--r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6162
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6164
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6298
+-rw-r--r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6345
+-rw-r--r-- 1 georgeca georgeca 2,2K mai 27 16:20 run.sstate_report_unihash.6346
+-rw-rw-r-- 1 georgeca georgeca 2,2K mai 27 17:23 run.sstate_report_unihash.6945
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6057
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6058
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6162
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6164
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6298
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6345
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 16:20 run.sstate_task_postfunc.6346
+-rw-r--r-- 1 georgeca georgeca  13K mai 27 17:23 run.sstate_task_postfunc.6945
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6057
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6058
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6162
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6164
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6298
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6345
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 16:20 run.sstate_task_prefunc.6346
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 17:23 run.sstate_task_prefunc.6944
+-rw-r--r-- 1 georgeca georgeca 5,0K mai 27 17:23 run.sstate_task_prefunc.6945
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:11 run.sstate_unpack_package.6702
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:26 run.sstate_unpack_package.7044
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:26 run.sstate_unpack_package.7045
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:26 run.sstate_unpack_package.7046
+-rwxrwxr-x 1 georgeca georgeca  13K mai 27 17:26 run.sstate_unpack_package.7092
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 16:20 run.sysroot_stage_all.6164
+-rwxrwxr-x 1 georgeca georgeca  12K mai 27 17:23 run.sysroot_stage_all.6945
+-rw-r--r-- 1 georgeca georgeca  585 mai 27 16:20 run.sysroot_strip.6164
+-rw-r--r-- 1 georgeca georgeca  585 mai 27 17:23 run.sysroot_strip.6945
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6057
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6058
+-rw-r--r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6162
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6164
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6298
+-rw-r--r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6345
+-rw-r--r-- 1 georgeca georgeca  649 mai 27 16:20 run.target_add_sysroot_deps.6346
+-rw-rw-r-- 1 georgeca georgeca  649 mai 27 17:23 run.target_add_sysroot_deps.6945
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6057
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6058
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6162
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6164
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6298
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6345
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 16:20 run.uninative_changeinterp.6346
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:11 run.uninative_changeinterp.6702
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:23 run.uninative_changeinterp.6945
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:26 run.uninative_changeinterp.7044
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:26 run.uninative_changeinterp.7045
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:26 run.uninative_changeinterp.7046
+-rw-r--r-- 1 georgeca georgeca 1,2K mai 27 17:26 run.uninative_changeinterp.7092
+-rw-r--r-- 1 georgeca georgeca  28K mai 27 16:20 run.write_specfile.6346
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls -lh /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/
+total 40K
+drwxr-xr-x 19 georgeca georgeca 4,0K iun  5 14:44 git
+drwxr-xr-x  2 georgeca georgeca 4,0K iun  5 14:10 recipe-sysroot
+drwxr-xr-x  3 georgeca georgeca 4,0K iun  5 14:00 recipe-sysroot-native
+drwxr-xr-x  2 georgeca georgeca 4,0K iun  5 14:44 source-date-epoch
+drwxr-xr-x  2 georgeca georgeca  20K iun  5 14:44 temp
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls -lh /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git
+total 64K
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 00_Yocto_Intro
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 01_Flashing_BBB
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 02_Local_Conf
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 03_BBLAYERS_Conf
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 04_Add_Package
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 05_Create_Layer
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 06_Basic_Variables
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 07_Variable_Assignment
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 08_Hello_World_Recipe
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 09_Build_Tasks
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 10_Patch
+drwxr-xr-x 3 georgeca georgeca 4,0K iun  5 14:44 11_RDEPENDS
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 12_RPROVIDES
+drwxr-xr-x 2 georgeca georgeca 4,0K iun  5 14:44 24_SystemD_Init_Manager
+drwxr-xr-x 3 georgeca georgeca 4,0K iun  5 14:44 25_SystemD_Service_Recipe
+drwxr-xr-x 3 georgeca georgeca 4,0K iun  5 14:44 bbb-example
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ tree  -L 2  /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git
+/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git
+├── 00_Yocto_Intro
+│   └── 00-Yocto-Intro.md
+├── 01_Flashing_BBB
+│   └── 01-Flashing-BBB.md
+├── 02_Local_Conf
+│   └── 02_Local_Conf.md
+├── 03_BBLAYERS_Conf
+│   └── 03_BBLAYERS_Conf.md
+├── 04_Add_Package
+│   └── 04_Add_Packages.md
+├── 05_Create_Layer
+│   └── 05_Create_Layer.md
+├── 06_Basic_Variables
+│   └── 06_Basic_Variables.md
+├── 07_Variable_Assignment
+│   └── 07_Variable_Assignment.md
+├── 08_Hello_World_Recipe
+│   └── 08_Hello_World_Recipe.md
+├── 09_Build_Tasks
+│   └── 09_Build_Tasks.md
+├── 10_Patch
+│   └── 10_Patch.md
+├── 11_RDEPENDS
+│   ├── 11_RDEPENDS.md
+│   └── rdepends-example
+├── 12_RPROVIDES
+│   └── 12_RPROVIDES.md
+├── 24_SystemD_Init_Manager
+│   └── 24_SystemD_init_manager.md
+├── 25_SystemD_Service_Recipe
+│   ├── 25_SystemD_Service_Recipe.md
+│   └── systemd-example
+└── bbb-example
+    ├── bbb-example.bb
+    └── files
+
+19 directories, 16 files
