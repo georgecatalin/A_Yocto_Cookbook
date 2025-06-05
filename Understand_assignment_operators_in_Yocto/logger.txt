@@ -1,0 +1,197 @@
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake example
+Loading cache: 100% |#############################################################################################################################################################################| Time: 0:00:00
+Loaded 990 entries from dependency cache.
+Parsing recipes: 100% |###########################################################################################################################################################################| Time: 0:00:50
+Parsing of 1747 .bb files complete (650 cached, 1097 parsed). 2786 targets, 78 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta
+meta-poky
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-my-builder      = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-assignment-vars = "<unknown>:<unknown>"
+
+Initialising tasks: 100% |########################################################################################################################################################################| Time: 0:00:02
+Sstate summary: Wanted 11 Local 4 Mirrors 0 Missed 7 Current 219 (36% match, 96% complete)
+NOTE: Executing Tasks
+***********************************************
+*                                             *
+*  Example recipe created by bitbake-layers   *
+*                                             *
+***********************************************
+NOTE: Tasks Summary: Attempted 786 tasks of which 768 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^TEST=
+TEST="foo"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^STEST=
+STEST="fighter"
+
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake example
+Loading cache: 100% |#############################################################################################################################################################################| Time: 0:00:00
+Loaded 2786 entries from dependency cache.
+Parsing recipes: 100% |###########################################################################################################################################################################| Time: 0:00:00
+Parsing of 1747 .bb files complete (1746 cached, 1 parsed). 2786 targets, 78 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta
+meta-poky
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-my-builder      = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-assignment-vars = "<unknown>:<unknown>"
+
+Initialising tasks: 100% |########################################################################################################################################################################| Time: 0:00:01
+Sstate summary: Wanted 5 Local 5 Mirrors 0 Missed 0 Current 225 (100% match, 100% complete)
+NOTE: Executing Tasks
+***********************************************
+*                                             *
+*  Example recipe created by bitbake-layers   *
+*                                             *
+***********************************************
+NOTE: Tasks Summary: Attempted 786 tasks of which 782 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake - example | grep ^VAR1=
+ERROR: Nothing PROVIDES '-'
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^VAR1=
+VAR1="foo bar"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^VAR2=
+VAR2="george calin"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^VAR3=
+VAR3="bar foo"
+
+
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake example
+Loading cache: 100% |#############################################################################################################################################################################| Time: 0:00:00
+Loaded 2786 entries from dependency cache.
+Parsing recipes: 100% |###########################################################################################################################################################################| Time: 0:00:00
+Parsing of 1747 .bb files complete (1746 cached, 1 parsed). 2786 targets, 78 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta
+meta-poky
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-my-builder      = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-assignment-vars = "<unknown>:<unknown>"
+
+Initialising tasks: 100% |########################################################################################################################################################################| Time: 0:00:01
+Sstate summary: Wanted 5 Local 5 Mirrors 0 Missed 0 Current 225 (100% match, 100% complete)
+NOTE: Executing Tasks
+***********************************************
+*                                             *
+*  Example recipe created by bitbake-layers   *
+*                                             *
+***********************************************
+NOTE: Tasks Summary: Attempted 786 tasks of which 782 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^VAR5=
+VAR5="burssensorina"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^VAR4
+VAR4="maracalin"
+
+
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake example
+Loading cache: 100% |#############################################################################################################################################################################| Time: 0:00:00
+Loaded 2786 entries from dependency cache.
+Parsing recipes: 100% |###########################################################################################################################################################################| Time: 0:00:00
+Parsing of 1747 .bb files complete (1746 cached, 1 parsed). 2786 targets, 78 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta
+meta-poky
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-my-builder      = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-assignment-vars = "<unknown>:<unknown>"
+
+Initialising tasks: 100% |########################################################################################################################################################################| Time: 0:00:01
+Sstate summary: Wanted 5 Local 5 Mirrors 0 Missed 0 Current 225 (100% match, 100% complete)
+NOTE: Executing Tasks
+***********************************************
+*                                             *
+*  Example recipe created by bitbake-layers   *
+*                                             *
+***********************************************
+NOTE: Tasks Summary: Attempted 786 tasks of which 782 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^VAR6=
+VAR6="georgecalin"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^VAR7=
+VAR7="mara bibbexcalin"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^VAR8=
+VAR8="calinburssen sorina"
+
+
+
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake example
+Loading cache: 100% |#############################################################################################################################################################################| Time: 0:00:00
+Loaded 2786 entries from dependency cache.
+Parsing recipes: 100% |###########################################################################################################################################################################| Time: 0:00:00
+Parsing of 1747 .bb files complete (1746 cached, 1 parsed). 2786 targets, 78 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta
+meta-poky
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-my-builder      = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-assignment-vars = "<unknown>:<unknown>"
+
+Initialising tasks: 100% |########################################################################################################################################################################| Time: 0:00:01
+Sstate summary: Wanted 5 Local 5 Mirrors 0 Missed 0 Current 225 (100% match, 100% complete)
+NOTE: Executing Tasks
+***********************************************
+*                                             *
+*  Example recipe created by bitbake-layers   *
+*                                             *
+***********************************************
+NOTE: Tasks Summary: Attempted 786 tasks of which 782 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^VAR9=
+VAR9=" bar bar  bar "
