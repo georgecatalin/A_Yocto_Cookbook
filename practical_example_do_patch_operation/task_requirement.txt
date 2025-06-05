@@ -1,0 +1,1 @@
+Create a new recipe to demonstrate the workflow around the do_patch() operation within the build process. do_patch() follows after do_unpack() which follows after do_fetch() operations.

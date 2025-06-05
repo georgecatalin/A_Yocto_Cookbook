@@ -1,0 +1,438 @@
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cp -r ../poky/meta-do_unpack_example/ ../poky/meta-do_patch_example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ source ../poky/oe-init-build-env .
+
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+
+Common targets are:
+    core-image-minimal
+    core-image-full-cmdline
+    core-image-sato
+    core-image-weston
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like 'runqemu qemux86'
+
+Other commonly useful commands are:
+ - 'devtool' and 'recipetool' handle common recipe tasks
+ - 'bitbake-layers' handles common layer tasks
+ - 'oe-pkgdata-util' handles common target package tasks
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-do_unpack_example  /home/georgeca/yocto_tutorial/poky/meta-do_unpack_example  6
+
+
+
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-do_unpack_example  /home/georgeca/yocto_tutorial/poky/meta-do_unpack_example  6
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers remove-layer ../poky/meta-do_unpack_example/
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers add-layer ../poky/meta-do_patch_example/
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-do_patch_example  /home/georgeca/yocto_tutorial/poky/meta-do_patch_example  6
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ mv ~/Downloads/0001-patch-example.patch ../poky/meta-do_patch_example/recipes-example/files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ rm ../poky/meta-do_patch_example/recipes-example/files 
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ mv ~/Downloads/0001-patch-example.patch ../poky/meta-do_patch_example/recipes-example/files/
+mv: cannot stat '/home/georgeca/Downloads/0001-patch-example.patch': No such file or directory
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ mkdir ../poky/meta-do_patch_example/recipes-example/files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ mv ~/Downloads/0001-patch-example.patch ../poky/meta-do_patch_example/recipes-example/files/
+mv: cannot stat '/home/georgeca/Downloads/0001-patch-example.patch': No such file or directory
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ mv ~/Downloads/0001-patch-example.patch ../poky/meta-do_patch_example/recipes-example/files/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ tree -L 4 ~/yocto_tutorial/poky/meta-do_patch_example/recipes-example/
+/home/georgeca/yocto_tutorial/poky/meta-do_patch_example/recipes-example/
+├── example
+│   └── example_0.1.bb
+└── files
+    └── 0001-patch-example.patch
+
+2 directories, 2 files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -c do_patch example
+Loading cache: 100% |                                                                                                                                                  | ETA:  --:--:--
+Loaded 0 entries from dependency cache.
+Parsing recipes: 100% |#################################################################################################################################################| Time: 0:00:25
+Parsing of 1746 .bb files complete (0 cached, 1746 parsed). 2785 targets, 78 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-do_patch_example = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+
+Initialising tasks: 100% |##############################################################################################################################################| Time: 0:00:00
+Sstate summary: Wanted 0 Local 0 Mirrors 0 Missed 0 Current 20 (0% match, 100% complete)
+NOTE: Executing Tasks
+NOTE: Tasks Summary: Attempted 93 tasks of which 90 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e example | grep ^S=
+S="/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls -lh /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git
+total 4,0K
+-rw-r--r-- 1 georgeca georgeca 380 iun  5 15:27 bbb-example.c
+-rw-r--r-- 1 georgeca georgeca   0 iun  5 15:27 bbb-example.h
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cat ^C
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cd  /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git$ ls -lh
+total 4,0K
+-rw-r--r-- 1 georgeca georgeca 380 iun  5 15:27 bbb-example.c
+-rw-r--r-- 1 georgeca georgeca   0 iun  5 15:27 bbb-example.h
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git$ cat bbb-example.c
+ #include <stdio.h>
+#include "bbb-example.h"
+
+int main() {
+  #ifdef WELCOME
+    #if WELCOME == y
+      printf("Welcome to Yocto Tutorial.\n");
+    #endif
+  #endif
+
+  #ifdef HELLO
+    #if HELLO == y
+      printf("Hello there, I am an example code :)\n");
+    #endif
+  #endif
+
+  #ifdef BYE
+    #if BYE == y
+      printf("Bye, keep learning!!\n");
+    #endif
+  #endif
+
+  return 0;
+}
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git$ cat bbb-example.c
+ #include <stdio.h>
+#include "bbb-example.h"
+
+int main() {
+  #ifdef WELCOME
+    #if WELCOME == y
+      printf("Welcome to Yocto Tutorial.\n");
+    #endif
+  #endif
+
+  #ifdef HELLO
+    #if HELLO == y
+      printf("Hello there, I am an example code :)\n");
+    #endif
+  #endif
+
+  #ifdef BYE
+    #if BYE == y
+      printf("Bye, keep learning!!\n");
+    #endif
+  #endif
+
+  return 0;
+}
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git$ cd  /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git$ cat bbb-example.c
+ #include <stdio.h>
+#include "bbb-example.h"
+
+int main() {
+  #ifdef WELCOME
+    #if WELCOME == y
+      printf("Welcome to Yocto Tutorial.\n");
+    #endif
+  #endif
+
+  #ifdef HELLO
+    #if HELLO == y
+      printf("Hello there, I am an example code :)\n");
+    #endif
+  #endif
+
+  #ifdef BYE
+    #if BYE == y
+      printf("Bye, keep learning!!\n");
+    #endif
+  #endif
+
+  return 0;
+}
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git$ cd ~/yocto_tutorial/poky/meta-do_patch_example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example$ ls -lh
+total 16K
+drwxrwxr-x 2 georgeca georgeca 4,0K iun  5 15:03 conf
+-rw-rw-r-- 1 georgeca georgeca 1,1K iun  5 15:03 COPYING.MIT
+-rw-rw-r-- 1 georgeca georgeca  855 iun  5 15:03 README
+drwxrwxr-x 5 georgeca georgeca 4,0K iun  5 15:25 recipes-example
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example$ cd recipes-example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ ls -lh
+total 8,0K
+drwxrwxr-x 2 georgeca georgeca 4,0K iun  5 15:03 example
+drwxrwxr-x 2 georgeca georgeca 4,0K iun  5 15:25 files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ ls example/
+example_0.1.bb
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ mv -r files/ example/
+mv: invalid option -- 'r'
+Try 'mv --help' for more information.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ mv -r files/ example/.
+mv: invalid option -- 'r'
+Try 'mv --help' for more information.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ mv -r files/ example
+mv: invalid option -- 'r'
+Try 'mv --help' for more information.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ mv -rf  files/ example
+mv: invalid option -- 'r'
+Try 'mv --help' for more information.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ mv --help
+Usage: mv [OPTION]... [-T] SOURCE DEST
+  or:  mv [OPTION]... SOURCE... DIRECTORY
+  or:  mv [OPTION]... -t DIRECTORY SOURCE...
+Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.
+
+Mandatory arguments to long options are mandatory for short options too.
+      --backup[=CONTROL]       make a backup of each existing destination file
+  -b                           like --backup but does not accept an argument
+  -f, --force                  do not prompt before overwriting
+  -i, --interactive            prompt before overwrite
+  -n, --no-clobber             do not overwrite an existing file
+If you specify more than one of -i, -f, -n, only the final one takes effect.
+      --strip-trailing-slashes  remove any trailing slashes from each SOURCE
+                                 argument
+  -S, --suffix=SUFFIX          override the usual backup suffix
+  -t, --target-directory=DIRECTORY  move all SOURCE arguments into DIRECTORY
+  -T, --no-target-directory    treat DEST as a normal file
+  -u, --update                 move only when the SOURCE file is newer
+                                 than the destination file or when the
+                                 destination file is missing
+  -v, --verbose                explain what is being done
+  -Z, --context                set SELinux security context of destination
+                                 file to default type
+      --help     display this help and exit
+      --version  output version information and exit
+
+The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.
+The version control method may be selected via the --backup option or through
+the VERSION_CONTROL environment variable.  Here are the values:
+
+  none, off       never make backups (even if --backup is given)
+  numbered, t     make numbered backups
+  existing, nil   numbered if numbered backups exist, simple otherwise
+  simple, never   always make simple backups
+
+GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+Full documentation <https://www.gnu.org/software/coreutils/mv>
+or available locally via: info '(coreutils) mv invocation'
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ mv   files/ example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ ls -lh
+total 4,0K
+drwxrwxr-x 3 georgeca georgeca 4,0K iun  5 15:42 example
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ cd example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example/example$ ls
+example_0.1.bb  files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example/example$ cd ~/yocto_tutorial/my_builds/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ source ../poky/oe-init-build-env .
+
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+
+Common targets are:
+    core-image-minimal
+    core-image-full-cmdline
+    core-image-sato
+    core-image-weston
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like 'runqemu qemux86'
+
+Other commonly useful commands are:
+ - 'devtool' and 'recipetool' handle common recipe tasks
+ - 'bitbake-layers' handles common layer tasks
+ - 'oe-pkgdata-util' handles common target package tasks
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -c do_patch example
+Loading cache: 100% |###################################################################################################################################################| Time: 0:00:00
+Loaded 2785 entries from dependency cache.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-do_patch_example = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+
+Initialising tasks: 100% |##############################################################################################################################################| Time: 0:00:00
+Sstate summary: Wanted 0 Local 0 Mirrors 0 Missed 0 Current 20 (0% match, 100% complete)
+NOTE: Executing Tasks
+NOTE: Tasks Summary: Attempted 93 tasks of which 93 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cd  /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git$ cat bbb-example.c
+ #include <stdio.h>
+#include "bbb-example.h"
+
+int main() {
+  #ifdef WELCOME
+    #if WELCOME == y
+      printf("Welcome to Yocto Tutorial.\n");
+    #endif
+  #endif
+
+  #ifdef HELLO
+    #if HELLO == y
+      printf("Hello there, I am an example code :)\n");
+    #endif
+  #endif
+
+  #ifdef BYE
+    #if BYE == y
+      printf("Bye, keep learning!!\n");
+    #endif
+  #endif
+
+  return 0;
+}
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git$ cd ~/yocto_tutorial/my_builds/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls -lh
+total 1,2M
+drwxrwxr-x 3 georgeca georgeca 4,0K mai 24 09:01 '~'
+-rw-rw-r-- 1 georgeca georgeca 1,2M iun  5 15:44  bitbake-cookerdaemon.log
+drwxrwxr-x 2 georgeca georgeca 4,0K iun  5 15:44  cache
+drwxrwxr-x 2 georgeca georgeca 4,0K iun  5 14:38  conf
+drwxrwxr-x 4 georgeca georgeca 4,0K mai 27 16:10  meta-assignment-vars
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cd ../poky/meta-do_patch_example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example$ ls
+conf  COPYING.MIT  README  recipes-example
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example$ cd recipes-example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ ls
+example
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example$ cd example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example/example$ ls
+example_0.1.bb  files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example/example$ cd files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example/example/files$ ls -lh
+total 4,0K
+-rw-rw-r-- 1 georgeca georgeca 690 iun  5 15:25 0001-patch-example.patch
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_patch_example/recipes-example/example/files$ cd ~/yocto_tutorial/my_builds/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ source ../poky/oe-init-build-env .
+
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+
+Common targets are:
+    core-image-minimal
+    core-image-full-cmdline
+    core-image-sato
+    core-image-weston
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like 'runqemu qemux86'
+
+Other commonly useful commands are:
+ - 'devtool' and 'recipetool' handle common recipe tasks
+ - 'bitbake-layers' handles common layer tasks
+ - 'oe-pkgdata-util' handles common target package tasks
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -c do_patch example
+Loading cache: 100% |###################################################################################################################################################| Time: 0:00:00
+Loaded 2785 entries from dependency cache.
+Parsing recipes: 100% |#################################################################################################################################################| Time: 0:00:00
+Parsing of 1746 .bb files complete (1745 cached, 1 parsed). 2785 targets, 78 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-do_patch_example = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+
+Initialising tasks: 100% |##############################################################################################################################################| Time: 0:00:00
+Sstate summary: Wanted 0 Local 0 Mirrors 0 Missed 0 Current 20 (0% match, 100% complete)
+NOTE: Executing Tasks
+NOTE: Tasks Summary: Attempted 93 tasks of which 90 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cd  /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/example/0.1-r0/git$ cat bbb-example.c
+ #include <stdio.h>
+#include "bbb-example.h"
+
+int main() {
+  #ifdef WELCOME
+    #if WELCOME == y
+      printf("Welcome to Yocto Tutorial\n");
+    #endif
+  #endif
+
+  #ifdef HELLO
+    #if HELLO == y
+      printf("Hello there, I am an example code :)\n");
+    #endif
+  #endif
+
+  #ifdef BYE
+    #if BYE == y
+      printf("Bye, keep learning!!\n");
+    #endif
+  #endif
+
+  printf("Hurry!! Patched successfull\n");
+
+
+  return 0;
+}
+
+
