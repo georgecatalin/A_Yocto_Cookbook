@@ -1,4 +1,157 @@
-<pre>Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
+<pre><font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ source ../poky/oe-init-build-env .
+
+### Shell environment set up for builds. ###
+
+You can now run &apos;bitbake &lt;target&gt;&apos;
+
+Common targets are:
+    core-image-minimal
+    core-image-full-cmdline
+    core-image-sato
+    core-image-weston
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like &apos;runqemu qemux86&apos;
+
+Other commonly useful commands are:
+ - &apos;devtool&apos; and &apos;recipetool&apos; handle common recipe tasks
+ - &apos;bitbake-layers&apos; handles common layer tasks
+ - &apos;oe-pkgdata-util&apos; handles common target package tasks
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ cp -r ../poky/meta-do_install_example/ ../poky/meta-understand-rdepends/
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ mv ../poky/meta-understand-rdepends/recipes-example/doinstallexample/ ../poky/meta-understand-rdepends/recipes-example/rdepends-example 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ cd ../poky/meta-understand-rdepends/recipes-example/
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example</b></font>$ ls -lh
+total 4,0K
+drwxrwxr-x 3 georgeca georgeca 4,0K iun  6 13:40 <font color="#268BD2"><b>rdepends-example</b></font>
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example</b></font>$ cd rdepends-example/
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example</b></font>$ ls -lh
+total 8,0K
+-rw-rw-r-- 1 georgeca georgeca  850 iun  6 13:40 doinstallexample_0.1.bb
+drwxrwxr-x 2 georgeca georgeca 4,0K iun  6 13:40 <font color="#268BD2"><b>files</b></font>
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example</b></font>$ mv doinstallexample_0.1.bb rdepends-example_0.1.bb
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example</b></font>$ ls -lh
+total 8,0K
+drwxrwxr-x 2 georgeca georgeca 4,0K iun  6 13:40 <font color="#268BD2"><b>files</b></font>
+-rw-rw-r-- 1 georgeca georgeca  850 iun  6 13:40 rdepends-example_0.1.bb
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example</b></font>$ cd files/
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/files</b></font>$ ls -lh
+total 4,0K
+-rw-rw-r-- 1 georgeca georgeca 494 iun  6 13:40 0001-modified-file.patch
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/files</b></font>$ rm 0001-modified-file.patch 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/files</b></font>$ ls -lh
+total 0
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/files</b></font>$ nano my_script.bash
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/files</b></font>$ cd ..
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example</b></font>$ code rdepends-example_0.1.bb 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example</b></font>$ cd files/
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/files</b></font>$ ls
+my_script.bash
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/files</b></font>$ mv my_script.bash my_script.sh
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/files</b></font>$ cd ~/yocto_tutorial/my_builds/
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ source ../poky/oe-init-build-env .
+
+### Shell environment set up for builds. ###
+
+You can now run &apos;bitbake &lt;target&gt;&apos;
+
+Common targets are:
+    core-image-minimal
+    core-image-full-cmdline
+    core-image-sato
+    core-image-weston
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like &apos;runqemu qemux86&apos;
+
+Other commonly useful commands are:
+ - &apos;devtool&apos; and &apos;recipetool&apos; handle common recipe tasks
+ - &apos;bitbake-layers&apos; handles common layer tasks
+ - &apos;oe-pkgdata-util&apos; handles common target package tasks
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake core-image-minimal
+Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
+Loaded 2785 entries from dependency cache.
+<b>NOTE</b>: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = &quot;2.0.0&quot;
+BUILD_SYS            = &quot;x86_64-linux&quot;
+NATIVELSBSTRING      = &quot;universal&quot;
+TARGET_SYS           = &quot;x86_64-poky-linux&quot;
+MACHINE              = &quot;qemux86-64&quot;
+DISTRO               = &quot;poky&quot;
+DISTRO_VERSION       = &quot;4.0.27&quot;
+TUNE_FEATURES        = &quot;m64 core2&quot;
+TARGET_FPU           = &quot;&quot;
+meta                 
+meta-poky            
+meta-yocto-bsp       = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+meta-oe              = &quot;kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0&quot;
+meta-do_install_example = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+
+Initialising tasks: 100% |###################################################################################################################################################################| Time: 0:00:02
+Sstate summary: Wanted 141 Local 141 Mirrors 0 Missed 0 Current 1317 (100% match, 100% complete)
+<b>NOTE</b>: Executing Tasks
+<b>NOTE</b>: Tasks Summary: Attempted 3976 tasks of which 3972 didn&apos;t need to be rerun and all succeeded.
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake-layers show-layers
+<b>NOTE</b>: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-do_install_example  /home/georgeca/yocto_tutorial/poky/meta-do_install_example  6
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake-layers remove-layer ../poky/meta-do_install_example/
+<b>NOTE</b>: Starting bitbake server...
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake-layers add-layer ../poky/meta-understand-rdepends/
+<b>NOTE</b>: Starting bitbake server...
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake-layers show-layers
+<b>NOTE</b>: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-understand-rdepends  /home/georgeca/yocto_tutorial/poky/meta-understand-rdepends  6
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |                                                                                                                                                                       | ETA:  --:--:--
+Loaded 0 entries from dependency cache.
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">ParseError at /home/georgeca/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/rdepends-example_0.1.bb:10: unparsed line: &apos;S = ${WORKDIR}&apos;</font>                | ETA:  0:00:06
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Parsing halted due to errors, see error messages above</font>
+
+Summary: There were 2 ERROR messages, returning a non-zero exit code.
+
+real	0m25,882s
+user	0m0,239s
+sys	0m0,051s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
+Loaded 2221 entries from dependency cache.
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">ParseError at /home/georgeca/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/rdepends-example_0.1.bb:10: unparsed line: &apos;S = ${WORKDIR}&apos;</font>                | ETA:  0:00:01
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Parsing halted due to errors, see error messages above</font>
+
+Summary: There were 2 ERROR messages, returning a non-zero exit code.
+
+real	0m7,683s
+user	0m0,309s
+sys	0m0,135s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
+Loaded 2699 entries from dependency cache.
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">/home/georgeca/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/rdepends-example_0.1.bb: QA Issue: /home/georgeca/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/rdepends-example_0.1.bb: Variable RDEPENDS is set as not being package specific, please fix this. [pkgvarcheck]</font>
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">/home/georgeca/yocto_tutorial/poky/meta-understand-rdepends/recipes-example/rdepends-example/rdepends-example_0.1.bb: Fatal QA errors were found, failing task.</font>
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Parsing halted due to errors, see error messages above</font>#################################################################################################################               | ETA:  0:00:00
+
+Summary: There were 3 ERROR messages, returning a non-zero exit code.
+
+real	0m3,240s
+user	0m0,269s
+sys	0m0,168s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
 Loaded 2778 entries from dependency cache.
 Parsing recipes: 100% |######################################################################################################################################################################| Time: 0:00:00
 Parsing of 1746 .bb files complete (1741 cached, 5 parsed). 2785 targets, 78 skipped, 0 masked, 0 errors.
@@ -49,5 +202,12 @@ Removing 2 stale sstate objects for arch qemux86_64: 100% |#####################
 real	1m13,083s
 user	0m0,445s
 sys	0m0,119s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ cp -r c
+cache/ conf/  
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ cp -r conf/ ~/Documents/my_yocto_cookbook/practical_example_to_understand_RDEPENDS/dirs
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ cp -r conf/ ~/Documents/my_yocto_cookbook/practical_example_to_understand_RDEPENDS/dirs
 <font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ cp -r ../poky/meta-understand-rdepends/ ~/Documents/my_yocto_cookbook/practical_example_to_understand_RDEPENDS/dirs
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ 
+
 </pre>
