@@ -1,0 +1,48 @@
+-prefix-map=/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/recipe-sysroot=                      -fdebug-prefix-map=/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/recipe-sysroot-native=  -Wl,-z,relro,-z,now"
+SECURITY_LDFLAGS="-Wl,-z,relro,-z,now"
+SECURITY_X_LDFLAGS="-Wl,-z,relro"
+TARGET_LDFLAGS="-Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -fmacro-prefix-map=/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0=/usr/src/debug/doCompileExample/0.1-r0                      -fdebug-prefix-map=/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0=/usr/src/debug/doCompileExample/0.1-r0                      -fdebug-prefix-map=/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/recipe-sysroot=                      -fdebug-prefix-map=/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/recipe-sysroot-native=  -Wl,-z,relro,-z,now"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -e doCompileExample | grep ^S=
+S="/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/git"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/git
+ls: cannot access '/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/git': No such file or directory
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake -c do_compile doCompileExample
+Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:01
+Loaded 2785 entries from dependency cache.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-do_compile_example = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+
+Initialising tasks: 100% |###################################################################################################################################################################| Time: 0:00:02
+Sstate summary: Wanted 1 Local 0 Mirrors 0 Missed 1 Current 71 (0% match, 98% complete)
+NOTE: Executing Tasks
+WARNING: QA Issue: PN: doCompileExample is upper case, this can result in unexpected behavior. [uppercase-pn]
+WARNING: QA Issue: PN: doCompileExample is upper case, this can result in unexpected behavior. [uppercase-pn]
+WARNING: QA Issue: PN: doCompileExample is upper case, this can result in unexpected behavior. [uppercase-pn]
+WARNING: QA Issue: PN: doCompileExample is upper case, this can result in unexpected behavior. [uppercase-pn]
+WARNING: QA Issue: PN: doCompileExample is upper case, this can result in unexpected behavior. [uppercase-pn]
+WARNING: QA Issue: PN: doCompileExample is upper case, this can result in unexpected behavior. [uppercase-pn]
+WARNING: QA Issue: PN: doCompileExample is upper case, this can result in unexpected behavior. [uppercase-pn]
+NOTE: Tasks Summary: Attempted 316 tasks of which 309 didn't need to be rerun and all succeeded.
+
+Summary: There were 7 WARNING messages.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ ls /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/git
+bbb-example  bbb-example.c  bbb-example.h  patches
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ file /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/git/bbb-example
+/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doCompileExample/0.1-r0/git/bbb-example: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-x86-64.so.2, BuildID[sha1]=124ab9dbec85f387577b945186c2a25fd845d18d, for GNU/Linux 3.2.0, with debug_info, not stripped
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ 
+

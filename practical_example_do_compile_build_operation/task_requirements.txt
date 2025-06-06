@@ -1,0 +1,8 @@
+Create a recipe to demonstrate the use of the do_compile() task within the build process of Yocto.
+
+Order of tasks in the build process:
+1. do_fetch()
+2. do_unpack()
+3. do_patch()
+4. do_configure()
+5. do_compile()
