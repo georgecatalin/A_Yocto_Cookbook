@@ -1,0 +1,1 @@
+Create a complete example on patching a recipe to modify a .c file.

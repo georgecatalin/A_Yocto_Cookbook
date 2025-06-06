@@ -1,0 +1,53 @@
+<pre>
+Build Configuration:
+BB_VERSION           = &quot;2.0.0&quot;
+BUILD_SYS            = &quot;x86_64-linux&quot;
+NATIVELSBSTRING      = &quot;universal&quot;
+TARGET_SYS           = &quot;x86_64-poky-linux&quot;
+MACHINE              = &quot;qemux86-64&quot;
+DISTRO               = &quot;poky&quot;
+DISTRO_VERSION       = &quot;4.0.27&quot;
+TUNE_FEATURES        = &quot;m64 core2&quot;
+TARGET_FPU           = &quot;&quot;
+meta                 
+meta-poky            
+meta-yocto-bsp       = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+meta-oe              = &quot;kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0&quot;
+meta-do_install_example = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+
+Initialising tasks: 100% |###################################################################################################################################################################| Time: 0:00:00
+Sstate summary: Wanted 0 Local 0 Mirrors 0 Missed 0 Current 0 (0% match, 0% complete)
+<b>NOTE</b>: No setscene tasks
+<b>NOTE</b>: Executing Tasks
+<b>NOTE</b>: Tasks Summary: Attempted 2 tasks of which 0 didn&apos;t need to be rerun and all succeeded.
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
+Loaded 2785 entries from dependency cache.
+<b>NOTE</b>: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = &quot;2.0.0&quot;
+BUILD_SYS            = &quot;x86_64-linux&quot;
+NATIVELSBSTRING      = &quot;universal&quot;
+TARGET_SYS           = &quot;x86_64-poky-linux&quot;
+MACHINE              = &quot;qemux86-64&quot;
+DISTRO               = &quot;poky&quot;
+DISTRO_VERSION       = &quot;4.0.27&quot;
+TUNE_FEATURES        = &quot;m64 core2&quot;
+TARGET_FPU           = &quot;&quot;
+meta                 
+meta-poky            
+meta-yocto-bsp       = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+meta-oe              = &quot;kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0&quot;
+meta-do_install_example = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+
+Initialising tasks: 100% |###################################################################################################################################################################| Time: 0:00:02
+Sstate summary: Wanted 148 Local 139 Mirrors 0 Missed 9 Current 1310 (93% match, 99% complete)
+<b>NOTE</b>: Executing Tasks
+<b>NOTE</b>: Tasks Summary: Attempted 3976 tasks of which 3949 didn&apos;t need to be rerun and all succeeded.
+
+real	0m49,091s
+user	0m0,502s
+sys	0m0,169s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ 
+</pre>

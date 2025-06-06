@@ -1,0 +1,24 @@
+From c0accdae477721a31cb2b393f22e060f0d454d41 Mon Sep 17 00:00:00 2001
+From: George Calin <george.calin@gmail.com>
+Date: Fri, 6 Jun 2025 13:10:48 +0300
+Subject: [PATCH] modified file
+
+---
+ bbb-example.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/bbb-example.c b/bbb-example.c
+index 6f31000..aaf926b 100644
+--- a/bbb-example.c
++++ b/bbb-example.c
+@@ -20,5 +20,7 @@ int main() {
+     #endif
+   #endif
+ 
++// this is added with the current patch 2025-06-06
++
+   return 0;
+ }
+-- 
+2.34.1
+

@@ -1,0 +1,51 @@
+<pre>  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
+        <font color="#DC322F">modified:   bbb-example.c</font>
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+        <font color="#DC322F">.pc/</font>
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+<font color="#859900"><b>root@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/git</b></font># git add bbb-example.c 
+<font color="#859900"><b>root@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/git</b></font># git commit -m &quot;modified the .c source file&quot;
+[master 2443a67] modified the .c source file
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+<font color="#859900"><b>root@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/git</b></font># git log
+<font color="#B58900">commit 2443a67664cb950a2f4cb9963beac193b966943b (</font><font color="#2AA198"><b>HEAD -&gt; </b></font><font color="#859900"><b>master</b></font><font color="#B58900">)</font>
+Author: George Calin &lt;george.calin@gmail.com&gt;
+Date:   Fri Jun 6 09:29:33 2025 +0000
+
+    modified the .c source file
+
+<font color="#B58900">commit e2fdd22bf1aaa02605c15f78c4654c369e0a947d</font>
+Author: George Calin &lt;george.calin@gmail.com&gt;
+Date:   Fri Jun 6 09:25:56 2025 +0000
+
+    initial commit
+
+<font color="#B58900">commit f1be90c683cc1fe31f58f3f8b081562e8b5c8230 (</font><font color="#DC322F"><b>origin/master</b></font><font color="#B58900">, </font><font color="#DC322F"><b>origin/HEAD</b></font><font color="#B58900">)</font>
+Author: Munawar &lt;munawerali1993@gmail.com&gt;
+Date:   Fri May 5 18:53:57 2023 +0200
+
+    example bbb code with header file
+
+<font color="#B58900">commit a0e4d125f4107ea9c79e20a94bf8ddf4c0043f5f</font>
+Author: Munawar &lt;munawerali1993@gmail.com&gt;
+Date:   Thu May 4 18:20:58 2023 +0200
+
+    bbb-example.c added
+<font color="#859900"><b>root@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/git</b></font># git format-patch HEAD ~1
+fatal: ambiguous argument &apos;~1&apos;: unknown revision or path not in the working tree.
+Use &apos;--&apos; to separate paths from revisions, like this:
+&apos;git &lt;command&gt; [&lt;revision&gt;...] -- [&lt;file&gt;...]&apos;
+<font color="#859900"><b>root@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/git</b></font># git format-patch HEAD~1
+0001-modified-the-.c-source-file.patch
+<font color="#859900"><b>root@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/git</b></font># ls -lh
+total 12K
+-rw-r--r-- 1 1000 1000  639 Jun  6 09:30 0001-modified-the-.c-source-file.patch
+-rw-r--r-- 1 1000 1000  498 Jun  6 09:28 bbb-example.c
+-rw-r--r-- 1 1000 1000    0 Jun  6 09:24 bbb-example.h
+drwxr-xr-x 2 1000 1000 4.0K Jun  6 09:25 <font color="#268BD2"><b>patches</b></font>
+<font color="#859900"><b>root@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/git</b></font># cp 0001-modified-the-.c-source-file.patch ~/yocto_tutorial/poky/meta-do_install_example/recipes-example/doinstallexample/files/
+<font color="#859900"><b>root@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/git</b></font># exit
+</pre>

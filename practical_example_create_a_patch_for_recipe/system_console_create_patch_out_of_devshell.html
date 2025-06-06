@@ -1,0 +1,53 @@
+<pre>  880  git commit -m &quot;modified file&quot;
+  881  git format-patch HEAD~1
+  882  cp 0001-modified-file.patch ~/yocto_tutorial/poky/meta-do_install_example/recipes-example/doinstallexample/files/
+  883  nano 0001-modified-file.patch 
+  884  nano bbb-example.c
+  885  git add bbb-example.c 
+  886  git commit -m &quot;new commit&quot;
+  887  git format-patch HEAD~1
+  888  ls -lh
+  889  cp 0001-new-commit.patch ~/yocto_tutorial/poky/meta-do_install_example/recipes-example/doinstallexample/files/
+  890  cd ..
+  891  ls
+  892  rm -rf bbb-tutorial-code/
+  893  ls
+  894  git clone https://github.com/Munawar-git/bbb-tutorial-code.git
+  895  history
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch</b></font>$ git checkout f1be90c683cc1fe31f58f3f8b081562e8b5c8230
+fatal: not a git repository (or any of the parent directories): .git
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch</b></font>$ cd bbb-tutorial-code/
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch/bbb-tutorial-code</b></font>$ git checkout f1be90c683cc1fe31f58f3f8b081562e8b5c8230
+Note: switching to &apos;f1be90c683cc1fe31f58f3f8b081562e8b5c8230&apos;.
+
+You are in &apos;detached HEAD&apos; state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c &lt;new-branch-name&gt;
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at f1be90c example bbb code with header file
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch/bbb-tutorial-code</b></font>$ nano bbb-example.c
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch/bbb-tutorial-code</b></font>$ git add bbb-example.c 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch/bbb-tutorial-code</b></font>$ git commit -m &quot;modified file&quot;
+[detached HEAD c0accda] modified file
+ 1 file changed, 2 insertions(+)
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch/bbb-tutorial-code</b></font>$ git format-patch HEAD~1
+0001-modified-file.patch
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch/bbb-tutorial-code</b></font>$ ls -lh
+total 8,0K
+-rw-rw-r-- 1 georgeca georgeca 494 iun  6 13:10 0001-modified-file.patch
+-rw-rw-r-- 1 georgeca georgeca 432 iun  6 13:10 bbb-example.c
+-rw-rw-r-- 1 georgeca georgeca   0 iun  6 13:09 bbb-example.h
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch/bbb-tutorial-code</b></font>$ cp 0001-modified-file.patch ~/yocto_tutorial/poky/meta-do_install_example/recipes-example/doinstallexample/files/
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/Documents/correct_patch/bbb-tutorial-code</b></font>$ 
+</pre>
