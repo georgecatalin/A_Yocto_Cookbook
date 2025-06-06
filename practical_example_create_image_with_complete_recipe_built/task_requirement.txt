@@ -1,0 +1,1 @@
+Create a image that builds completely a specified recipe. For speed and ease , use a core-image-minimal on a qemux86-64 machine emulator.
