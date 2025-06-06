@@ -1,0 +1,134 @@
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ source ../poky/oe-init-build-env .
+
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+
+Common targets are:
+    core-image-minimal
+    core-image-full-cmdline
+    core-image-sato
+    core-image-weston
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like 'runqemu qemux86'
+
+Other commonly useful commands are:
+ - 'devtool' and 'recipetool' handle common recipe tasks
+ - 'bitbake-layers' handles common layer tasks
+ - 'oe-pkgdata-util' handles common target package tasks
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cp -r ../poky/meta-do_compile_example/ ../poky/meta-do_install_example
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-do_compile_example  /home/georgeca/yocto_tutorial/poky/meta-do_compile_example  6
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers remove-layer ../poky/meta-do_compile_example/
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers add-layer ../poky/meta-do_install_example/
+NOTE: Starting bitbake server...
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ bitbake-layers show-layers
+NOTE: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-do_install_example  /home/georgeca/yocto_tutorial/poky/meta-do_install_example  6
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ mv ../poky/meta-do_install_example/recipes-example/doCompileExample/ ../poky/meta-do_install_example/doinstallexample
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/my_builds$ cd ../poky/meta-do_install_example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ ls -lh
+total 20K
+drwxrwxr-x 2 georgeca georgeca 4,0K iun  6 10:17 conf
+-rw-rw-r-- 1 georgeca georgeca 1,1K iun  6 10:17 COPYING.MIT
+drwxrwxr-x 3 georgeca georgeca 4,0K iun  6 10:17 doinstallexample
+-rw-rw-r-- 1 georgeca georgeca  855 iun  6 10:17 README
+drwxrwxr-x 3 georgeca georgeca 4,0K iun  6 10:20 recipes-example
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ ls doinstallexample/
+doCompileExample_0.1.bb  files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ ls recipes-example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ mv doinstallexample/ recipes-example/
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ tree .
+.
+├── conf
+│   └── layer.conf
+├── COPYING.MIT
+├── README
+└── recipes-example
+    └── doinstallexample
+        ├── doCompileExample_0.1.bb
+        └── files
+            └── 0001-patch-example.patch
+
+4 directories, 5 files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ mv recipes-example/doinstallexample/doCompileExample_0.1.bb recipes-example/doinstallexample/doinstallexample_0.1.bb
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ tree .
+.
+├── conf
+│   └── layer.conf
+├── COPYING.MIT
+├── README
+└── recipes-example
+    └── doinstallexample
+        ├── doinstallexample_0.1.bb
+        └── files
+            └── 0001-patch-example.patch
+
+4 directories, 5 files
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ code recipes-example/doinstallexample/doinstallexample_0.1.bb 
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ bitbake -e doinstallexample | grep ^D=
+D="/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/image"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ ls -lh /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/image
+ls: cannot access '/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/image': No such file or directory
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ bitbake -e doinstallexample | grep ^S=
+S="/home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/git"
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ bitbake -c do_install doinstallexample
+Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:01
+Loaded 2785 entries from dependency cache.
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "2.0.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "x86_64-poky-linux"
+MACHINE              = "qemux86-64"
+DISTRO               = "poky"
+DISTRO_VERSION       = "4.0.27"
+TUNE_FEATURES        = "m64 core2"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+meta-oe              = "kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0"
+meta-do_install_example = "kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7"
+
+Initialising tasks: 100% |###################################################################################################################################################################| Time: 0:00:02
+Sstate summary: Wanted 1 Local 0 Mirrors 0 Missed 1 Current 71 (0% match, 98% complete)
+NOTE: Executing Tasks
+NOTE: Tasks Summary: Attempted 317 tasks of which 309 didn't need to be rerun and all succeeded.
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ ls -lh /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/image
+total 4,0K
+drwxr-xr-x 3 georgeca georgeca 4,0K iun  6 10:42 usr
+georgeca@georgeca-VirtualBox:~/yocto_tutorial/poky/meta-do_install_example$ tree -lh /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/image
+[4.0K]  /home/georgeca/yocto_tutorial/sources/tmp/work/core2-64-poky-linux/doinstallexample/0.1-r0/image
+└── [4.0K]  usr
+    └── [4.0K]  bin
+        └── [ 20K]  bbb-example
+
+2 directories, 1 file
+

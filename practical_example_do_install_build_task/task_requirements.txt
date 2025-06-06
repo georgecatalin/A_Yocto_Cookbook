@@ -1,0 +1,11 @@
+Create a recipe to demonstrate to running of the do_install() task within the bitbake build process.
+
+
+Order of the tasks in the bitbake build process:
+1. do_fetch()
+2. do_unpack()
+3. do_patch()
+4. do_configure()
+5. do_compile()
+6. do_install()
+
