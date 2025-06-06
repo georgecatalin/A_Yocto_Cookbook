@@ -1,0 +1,189 @@
+<pre><font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ source ../poky/oe-init-build-env .
+
+### Shell environment set up for builds. ###
+
+You can now run &apos;bitbake &lt;target&gt;&apos;
+
+Common targets are:
+    core-image-minimal
+    core-image-full-cmdline
+    core-image-sato
+    core-image-weston
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like &apos;runqemu qemux86&apos;
+
+Other commonly useful commands are:
+ - &apos;devtool&apos; and &apos;recipetool&apos; handle common recipe tasks
+ - &apos;bitbake-layers&apos; handles common layer tasks
+ - &apos;oe-pkgdata-util&apos; handles common target package tasks
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ cp -r ../poky/meta-understand-rdepends/ ../poky/meta-understand-rprovides
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ nano ../poky/meta-understand-rprovides/
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ nano ../poky/meta-understand-rprovides/recipes-example/rdepends-example/rdepends-example_0.1.bb 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ mv ../poky/meta-understand-rprovides/recipes-example/rdepends-example/ ../poky/meta-understand-rprovides/recipes-example/rprovides-example
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ mv  ../poky/meta-understand-rprovides/recipes-example/rprovides-example/rdepends-example_0.1.bb ../poky/meta-understand-rprovides/recipes-example/rprovides-example/rprovides-example_0.1.bb
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ nano conf/local.conf 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ nano conf/local.conf 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |                                                                                                                                                                       | ETA:  --:--:--
+Loaded 0 entries from dependency cache.
+Parsing recipes: 100% |######################################################################################################################################################################| Time: 0:00:30
+Parsing of 1746 .bb files complete (0 cached, 1746 parsed). 2785 targets, 78 skipped, 0 masked, 0 errors.
+<b>NOTE</b>: Resolving any missing task queue dependencies
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Nothing RPROVIDES &apos;rprovides&apos; (but /home/georgeca/yocto_tutorial/poky/meta/recipes-core/images/core-image-minimal.bb RDEPENDS on or otherwise requires it)</font>
+<b>NOTE</b>: Runtime target &apos;rprovides&apos; is unbuildable, removing...
+Missing or unbuildable dependency chain was: [&apos;rprovides&apos;]
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Required build target &apos;core-image-minimal&apos; has no buildable providers.</font>
+<font color="#DC322F">Missing or unbuildable dependency chain was: [&apos;core-image-minimal&apos;, &apos;rprovides&apos;]</font>
+
+Summary: There were 2 ERROR messages, returning a non-zero exit code.
+
+real	0m31,560s
+user	0m0,236s
+sys	0m0,054s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ nano ../poky/meta-understand-rprovides/recipes-example/rprovides-example/rprovides-example_0.1.bb 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
+Loaded 2785 entries from dependency cache.
+<b>NOTE</b>: Resolving any missing task queue dependencies
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Nothing RPROVIDES &apos;rprovides&apos; (but /home/georgeca/yocto_tutorial/poky/meta/recipes-core/images/core-image-minimal.bb RDEPENDS on or otherwise requires it)</font>
+<b>NOTE</b>: Runtime target &apos;rprovides&apos; is unbuildable, removing...
+Missing or unbuildable dependency chain was: [&apos;rprovides&apos;]
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Required build target &apos;core-image-minimal&apos; has no buildable providers.</font>
+<font color="#DC322F">Missing or unbuildable dependency chain was: [&apos;core-image-minimal&apos;, &apos;rprovides&apos;]</font>
+
+Summary: There were 2 ERROR messages, returning a non-zero exit code.
+
+real	0m1,976s
+user	0m0,236s
+sys	0m0,169s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ nano ../poky/meta-understand-rprovides/recipes-example/rprovides-example/rprovides-example_0.1.bb 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ code ../poky/meta-understand-rprovides/recipes-example/rprovides-example/rprovides-example_0.1.bb 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ nano conf/local.conf 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
+Loaded 2785 entries from dependency cache.
+<b>NOTE</b>: Resolving any missing task queue dependencies
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Nothing RPROVIDES &apos;rprovides&apos; (but /home/georgeca/yocto_tutorial/poky/meta/recipes-core/images/core-image-minimal.bb RDEPENDS on or otherwise requires it)</font>
+<b>NOTE</b>: Runtime target &apos;rprovides&apos; is unbuildable, removing...
+Missing or unbuildable dependency chain was: [&apos;rprovides&apos;]
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Required build target &apos;core-image-minimal&apos; has no buildable providers.</font>
+<font color="#DC322F">Missing or unbuildable dependency chain was: [&apos;core-image-minimal&apos;, &apos;rprovides&apos;]</font>
+
+Summary: There were 2 ERROR messages, returning a non-zero exit code.
+
+real	0m1,978s
+user	0m0,321s
+sys	0m0,122s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ nano conf/local.conf 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |                                                                                                                                                                       | ETA:  --:--:--
+Loaded 0 entries from dependency cache.
+Parsing recipes: 100% |######################################################################################################################################################################| Time: 0:00:31
+Parsing of 1746 .bb files complete (0 cached, 1746 parsed). 2785 targets, 78 skipped, 0 masked, 0 errors.
+<b>NOTE</b>: Resolving any missing task queue dependencies
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Nothing RPROVIDES &apos;rprovides-example&apos; (but /home/georgeca/yocto_tutorial/poky/meta/recipes-core/images/core-image-minimal.bb RDEPENDS on or otherwise requires it)</font>
+<b>NOTE</b>: Runtime target &apos;rprovides-example&apos; is unbuildable, removing...
+Missing or unbuildable dependency chain was: [&apos;rprovides-example&apos;]
+<font color="#DC322F"><b>ERROR</b></font>: <font color="#DC322F">Required build target &apos;core-image-minimal&apos; has no buildable providers.</font>
+<font color="#DC322F">Missing or unbuildable dependency chain was: [&apos;core-image-minimal&apos;, &apos;rprovides-example&apos;]</font>
+
+Summary: There were 2 ERROR messages, returning a non-zero exit code.
+
+real	0m33,141s
+user	0m0,217s
+sys	0m0,096s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake-layers show-layers
+<b>NOTE</b>: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-understand-rdepends  /home/georgeca/yocto_tutorial/poky/meta-understand-rdepends  6
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake-layers remove-layer ../poky/meta-understand-r
+<b>NOTE</b>: Starting bitbake server...
+No layers matching /home/georgeca/yocto_tutorial/poky/meta-understand-r found in BBLAYERS
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake-layers remove-layer ../poky/meta-understand-rdepends/
+<b>NOTE</b>: Starting bitbake server...
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake-layers add-layer ../poky/meta-understand-rprovides/
+<b>NOTE</b>: Starting bitbake server...
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ bitbake-layers show-layers
+<b>NOTE</b>: Starting bitbake server...
+layer                 path                                      priority
+==========================================================================
+meta                  /home/georgeca/yocto_tutorial/poky/meta   5
+meta-poky             /home/georgeca/yocto_tutorial/poky/meta-poky  5
+meta-yocto-bsp        /home/georgeca/yocto_tutorial/poky/meta-yocto-bsp  5
+meta-oe               /home/georgeca/yocto_tutorial/poky/meta-openembedded/meta-oe  5
+meta-understand-rprovides  /home/georgeca/yocto_tutorial/poky/meta-understand-rprovides  6
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |                                                                                                                                                                       | ETA:  --:--:--
+Loaded 0 entries from dependency cache.
+Parsing recipes: 100% |######################################################################################################################################################################| Time: 0:00:31
+Parsing of 1746 .bb files complete (0 cached, 1746 parsed). 2785 targets, 78 skipped, 0 masked, 0 errors.
+Removing 1 recipes from the core2-64 sysroot: 100% |#########################################################################################################################################| Time: 0:00:00
+Removing 1 recipes from the qemux86_64 sysroot: 100% |#######################################################################################################################################| Time: 0:00:00
+<b>NOTE</b>: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = &quot;2.0.0&quot;
+BUILD_SYS            = &quot;x86_64-linux&quot;
+NATIVELSBSTRING      = &quot;universal&quot;
+TARGET_SYS           = &quot;x86_64-poky-linux&quot;
+MACHINE              = &quot;qemux86-64&quot;
+DISTRO               = &quot;poky&quot;
+DISTRO_VERSION       = &quot;4.0.27&quot;
+TUNE_FEATURES        = &quot;m64 core2&quot;
+TARGET_FPU           = &quot;&quot;
+meta                 
+meta-poky            
+meta-yocto-bsp       = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+meta-oe              = &quot;kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0&quot;
+meta-understand-rprovides = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+
+Initialising tasks: 100% |###################################################################################################################################################################| Time: 0:00:02
+Sstate summary: Wanted 148 Local 139 Mirrors 0 Missed 9 Current 1310 (93% match, 99% complete)
+Removing 2 stale sstate objects for arch qemux86_64: 100% |##################################################################################################################################| Time: 0:00:00
+<b>NOTE</b>: Executing Tasks
+<b>NOTE</b>: Tasks Summary: Attempted 3976 tasks of which 3947 didn&apos;t need to be rerun and all succeeded.
+
+real	1m17,253s
+user	0m0,486s
+sys	0m0,141s
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ nano conf/local.conf 
+<font color="#859900"><b>georgeca@georgeca-VirtualBox</b></font>:<font color="#268BD2"><b>~/yocto_tutorial/my_builds</b></font>$ time bitbake core-image-minimal
+Loading cache: 100% |                                                                                                                                                                       | ETA:  --:--:--
+Loaded 0 entries from dependency cache.
+Parsing recipes: 100% |######################################################################################################################################################################| Time: 0:00:31
+Parsing of 1746 .bb files complete (0 cached, 1746 parsed). 2785 targets, 78 skipped, 0 masked, 0 errors.
+<b>NOTE</b>: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = &quot;2.0.0&quot;
+BUILD_SYS            = &quot;x86_64-linux&quot;
+NATIVELSBSTRING      = &quot;universal&quot;
+TARGET_SYS           = &quot;x86_64-poky-linux&quot;
+MACHINE              = &quot;qemux86-64&quot;
+DISTRO               = &quot;poky&quot;
+DISTRO_VERSION       = &quot;4.0.27&quot;
+TUNE_FEATURES        = &quot;m64 core2&quot;
+TARGET_FPU           = &quot;&quot;
+meta                 
+meta-poky            
+meta-yocto-bsp       = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+meta-oe              = &quot;kirkstone:e42549cef364ae09b3b7c8b64bbeab32e50f1bb0&quot;
+meta-understand-rprovides = &quot;kirkstone:ab9a994a8cd8e06b519a693db444030999d273b7&quot;
+
+Initialising tasks: 100% |###################################################################################################################################################################| Time: 0:00:02
+Sstate summary: Wanted 143 Local 141 Mirrors 0 Missed 2 Current 1315 (98% match, 99% complete)
+Removing 2 stale sstate objects for arch qemux86_64: 100% |##################################################################################################################################| Time: 0:00:00
+<b>NOTE</b>: Executing Tasks
+<b>NOTE</b>: Tasks Summary: Attempted 3976 tasks of which 3962 didn&apos;t need to be rerun and all succeeded.
+
+real	1m14,847s
+user	0m0,391s
+sys	0m0,179s
+</pre>

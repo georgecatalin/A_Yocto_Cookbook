@@ -1,0 +1,3 @@
+Create a recipe and the workflow to show the use of RPROVIDES in a Yocto recipe. 
+
+RPROVIDES allows creating aliases for packages or virtual packages that can be used with RDEPENDS in other recipes.
