@@ -7,4 +7,5 @@ This repository contains a curated collection of Yocto Project resources, includ
 ## Useful Links
 1. https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html
 2. https://www.youtube.com/watch?v=5fj05BWryhM&list=PLwqS94HTEwpQmgL1UsSwNk_2tQdzq3eVJ
+3. https://www.youtube.com/watch?v=8M8U1EgnUVw 
 
